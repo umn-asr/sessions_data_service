@@ -1,0 +1,14 @@
+---
+institution:
+  attributes:
+    required:
+      type:
+        type: string
+        description: "the resource type"
+      institution_id:
+        type: string
+        description: "the abbreviation of the institution name"
+      abbreviation:
+        type: string
+        description: "the abbreviation of the institution name"
+  example: "{type: 'institution', institution_id: 'umntc', abbreviation: 'umntc'}"
