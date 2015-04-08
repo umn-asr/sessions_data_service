@@ -11,4 +11,7 @@ institution:
       abbreviation:
         type: string
         description: "the abbreviation of the institution name"
-  example: "{type: 'institution', institution_id: 'umntc', abbreviation: 'umntc'}"
+  example:
+    type: 'institution'
+    institution_id: 'umntc'
+    abbreviation: 'umntc'

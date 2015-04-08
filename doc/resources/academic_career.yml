@@ -8,4 +8,6 @@ academic_career:
       academic_career_id:
         type: string
         description: "the abbreviation of the academic career"
-  example: "{type: 'academic_career', academic_career_id: 'ugrd'}"
+  example:
+    type: 'academic_career'
+    academic_career_id: 'ugrd'

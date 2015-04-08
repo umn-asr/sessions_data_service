@@ -11,4 +11,7 @@ term:
       strm:
         type: string
         description: "the strm notation of the term"
-  example: "{type: 'term', term_id: '1153', strm: '1153'}"
+  example:
+    type: 'term'
+    term_id: '1153'
+    strm: '1153'
