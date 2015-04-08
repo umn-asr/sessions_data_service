@@ -60,7 +60,7 @@ function populateSelects() {
   .done(function( response ) {
       $.each(response.institutions, function(i, item) {
         $('#institutionSelect').append(
-          $('<option></option>').val(item.institution_id).html(item.abbreviation)
+          $('<option></option>').val(item.institution_id).html(item.abbreviation.toUpperCase())
         );
       });
       $('#institutionSelect').bind('select',refreshSessions());
@@ -74,7 +74,7 @@ function populateSelects() {
   .done(function( response ) {
       $.each(response.academic_careers, function(i, item) {
         $('#careerSelect').append(
-          $('<option></option>').val(item.academic_career_id).html(item.academic_career_id)
+          $('<option></option>').val(item.academic_career_id).html(item.academic_career_id.toUpperCase())
         );
       });
       $('#careerSelect').bind('select',refreshSessions());
