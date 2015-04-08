@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <title>jquery test</title>
+    <script src='jquery-1.6.4.min.js' type='text/javascript'></script>
+  </head>
+  <body>
+    <form action=''>
+      <select id="termSelect" onchange='refreshSessions()'>
+      </select>
+      <select id="institutionSelect" onchange='refreshSessions()'>
+      </select>
+      <select id="careerSelect" onchange='refreshSessions()'>
+      </select>
+    </form>
+    <table id='sessionsTable'>
+      <thead>
+        <tr>
+          <th>
+            Session Code
+          </th>
+          <th>
+            Session Name
+          </th>
+          <th>
+            Begin Date
+          </th>
+          <th>
+            End Date
+          </th>
+        </tr>
+      </thead>
+      <tbody id='sessionsTableBody'>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+<script type='text/javascript'>
+var session_url = 'http://localhost:4567';
+
+function populateSelects() {
+  $.ajax({
+    url: session_url + '/terms.json',
+    type: "GET"
+  })
+  .done(function( response ) {
+      $.each(response.terms, function(i, item) {
+        $('#termSelect').append(
+          $('<option></option>').val(item.term_id).html(item.strm)
+        );
+      });
+      $('#termSelect').bind('select',refreshSessions());
+      $('#termSelect>option:eq(0)').prop('selected',true);
+  });
+
+  $.ajax({
+    url: session_url + '/institutions.json',
+    type: "GET"
+  })
+  .done(function( response ) {
+      $.each(response.institutions, function(i, item) {
+        $('#institutionSelect').append(
+          $('<option></option>').val(item.institution_id).html(item.abbreviation)
+        );
+      });
+      $('#institutionSelect').bind('select',refreshSessions());
+      $('#institutionSelect>option:eq(0)').prop('selected',true);
+  });
+
+  $.ajax({
+    url: session_url + '/academic_careers.json',
+    type: "GET"
+  })
+  .done(function( response ) {
+      $.each(response.academic_careers, function(i, item) {
+        $('#careerSelect').append(
+          $('<option></option>').val(item.academic_career_id).html(item.academic_career_id)
+        );
+      });
+      $('#careerSelect').bind('select',refreshSessions());
+      $('#careerSelect>option:eq(0)').prop('selected',true);
+  });
+}
+
+function refreshSessions() {
+  var institution_id = $('#institutionSelect').val();
+  var term_id = $('#termSelect').val();
+  var career_id = $('#careerSelect').val();
+
+  if (institution_id && term_id && career_id) {
+    $.ajax({
+      url: session_url + '/sessions.json?q=' +
+        'institution_id=' + institution_id +
+        ',term_id=' +  term_id +
+        ',academic_career_id=' +  career_id,
+      type: "GET"
+    })
+    .done(function( response ) {
+      $('#sessionsTableBody').empty();
+      $.each(response.sessions, function(i, item) {
+        var $tr = $('<tr>').append(
+          $('<td>').text(item.session_code),
+          $('<td>').text(item.session_name),
+          $('<td>').text(format_date(item.begin_date)),
+          $('<td>').text(format_date(item.end_date))
+        ).appendTo('#sessionsTableBody');
+      });
+    });
+  }
+}
+
+function format_date(date_string) {
+  var d = new Date(Date.parse(date_string));
+  return d.getUTCMonth() + "/" +
+    d.getUTCDate() + "/" +
+    d.getUTCFullYear();
+}
+
+
+$(document).ready(populateSelects());
+</script>
