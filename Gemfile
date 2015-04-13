@@ -11,6 +11,7 @@ end
 
 gem 'rabl'
 gem 'oj'
+gem 'query_string_search', '0.0.6'
 
 group :development, :test do
   gem 'spring'
