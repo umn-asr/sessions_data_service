@@ -44,11 +44,11 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json">http://sessions.umn.edu/sessions.json</a></td>
+<td><code>http://sessions.umn.edu/sessions.json</code></td>
 <td>All data is JSON format</td>
 </tr>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.xml">http://sessions.umn.edu/sessions.xml</a></td>
+<td><code>http://sessions.umn.edu/sessions.xml</code></td>
 <td>All data is XML format</td>
 </tr>
 </tbody>
@@ -66,12 +66,12 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json?q=institution_id=UMNTC">http://sessions.umn.edu/sessions.json?q=institution_id=UMNTC</a></td>
+<td><code>http://sessions.umn.edu/sessions.json?q=institution_id=UMNTC</code></td>
 <td>All data for UMNTC institution</td>
 </tr>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json?q=institution_id=UMNMO">http://sessions.umn.edu/sessions.json?q=institution_id=UMNMO</a></td>
-<td>UMNTC</td>
+<td><code>http://sessions.umn.edu/sessions.json?q=institution_id=UMNMO|UMNTC</code></td>
+<td>All data for UMNMO and UMNTC institutions</td>
 </tr>
 </tbody>
 </table>
@@ -88,12 +88,12 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json?q=term_id=1149">http://sessions.umn.edu/sessions.json?q=term_id=1149</a></td>
+<td><code>http://sessions.umn.edu/sessions.json?q=term_id=1149</code></td>
 <td>All data for Fall 2014 term</td>
 </tr>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json?q=term_id=1155">http://sessions.umn.edu/sessions.json?q=term_id=1155</a></td>
-<td>1159</td>
+<td><code>http://sessions.umn.edu/sessions.json?q=term_id=1155|1159</code></td>
+<td>All data for Summer 2015 and Fall 2015 terms</td>
 </tr>
 </tbody>
 </table>
@@ -110,12 +110,12 @@
 </thead>
 <tbody>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd">http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd</a></td>
+<td><code>http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd</code></td>
 <td>All data for undergrad acadamic career</td>
 </tr>
 <tr>
-<td><a href="http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd">http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd</a></td>
-<td>law</td>
+<td><code>http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd|law</code></td>
+<td>All data for undergrad and law academic careers</td>
 </tr>
 </tbody>
 </table>
@@ -125,7 +125,32 @@
 
 <p>Just seperate your criteria with commas</p>
 
-<p><a href="http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd%7Claw,term_id=1149,institution_id=UMNTC">http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd|law,term_id=1149,institution_id=UMNTC</a></p>
+<p><code>http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd|law,term_id=1149,institution_id=UMNTC</code></p>
+
+<h2>
+<a id="data-returned" class="anchor" href="#data-returned" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Returned</h2>
+
+<p>You will get a collection of <code>session</code> resources back. The format will depend on if you choose XML or JSON, but the data will be like this example:</p>
+
+<div class="highlight highlight-yaml"><pre><span class="pl-s"><span class="pl-ent">session:</span></span>
+  <span class="pl-s"><span class="pl-ent">type:</span> <span class="pl-s"><span class="pl-pds">'</span>session<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">session_id:</span> <span class="pl-s"><span class="pl-pds">'</span>umntc_ugrd_1159_017<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">academic_career:</span></span>
+    <span class="pl-s"><span class="pl-ent">type:</span> <span class="pl-s"><span class="pl-pds">'</span>academic_career<span class="pl-pds">'</span></span></span>
+    <span class="pl-s"><span class="pl-ent">academic_career_id:</span> <span class="pl-s"><span class="pl-pds">'</span>ugrd<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">institution:</span></span>
+    <span class="pl-s"><span class="pl-ent">type:</span> <span class="pl-s"><span class="pl-pds">'</span>institution<span class="pl-pds">'</span></span></span>
+    <span class="pl-s"><span class="pl-ent">institution_id:</span> <span class="pl-s"><span class="pl-pds">'</span>umntc<span class="pl-pds">'</span></span></span>
+    <span class="pl-s"><span class="pl-ent">abbreviation:</span> <span class="pl-s"><span class="pl-pds">'</span>umntc<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">term:</span></span>
+    <span class="pl-s"><span class="pl-ent">type:</span> <span class="pl-s"><span class="pl-pds">'</span>term<span class="pl-pds">'</span></span></span>
+    <span class="pl-s"><span class="pl-ent">term_id:</span> <span class="pl-s"><span class="pl-pds">'</span>1159<span class="pl-pds">'</span></span></span>
+    <span class="pl-s"><span class="pl-ent">strm:</span> <span class="pl-s"><span class="pl-pds">'</span>1159<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">session_code:</span> <span class="pl-s"><span class="pl-pds">'</span>017<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">session_name:</span> <span class="pl-s"><span class="pl-pds">'</span>11 wk Session<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">begin_date:</span> <span class="pl-s"><span class="pl-pds">'</span>2015-09-08<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">end_date:</span> <span class="pl-s"><span class="pl-pds">'</span>2015-11-23<span class="pl-pds">'</span></span></span>
+  <span class="pl-s"><span class="pl-ent">enrollement_open_date:</span> <span class="pl-s"><span class="pl-pds">'</span>2015-05-01<span class="pl-pds">'</span></span></span></pre></div>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/umn-asr/sessions_data_service">Sessions data service</a> is maintained by <a href="https://github.com/umn-asr">umn-asr</a>.</span>
