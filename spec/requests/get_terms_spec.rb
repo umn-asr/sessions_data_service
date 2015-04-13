@@ -3,10 +3,12 @@ require "json"
 
 RSpec.describe "Get terms" do
   describe "as json" do
-    get "/terms/index.json"
+    it "returns a non-empty collection" do
+      get "/terms/index.json"
 
-    terms = JSON.parse(response.body)
+      terms = JSON.parse(response.body)
 
-    expect(terms).not_to be_empty
+      expect(terms).not_to be_empty
+    end
   end
 end
