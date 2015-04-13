@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Sessions data service by umn-asr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Sessions data service</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/umn-asr/sessions_data_service" class="btn">View on GitHub</a>
+      <a href="https://github.com/umn-asr/sessions_data_service/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/umn-asr/sessions_data_service/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="sessionsumnedu" class="anchor" href="#sessionsumnedu" aria-hidden="true"><span class="octicon octicon-link"></span></a>sessions.umn.edu</h1>
+
+<p>A public API for data about UMN Sessions.</p>
+
+<h2>
+<a id="sessions" class="anchor" href="#sessions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sessions?</h2>
+
+<p>You're probably familar with Terms (i.e., Fall 2015, etc.). Terms are further broken down into sessions. That session data is what this service returns.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="get-everything" class="anchor" href="#get-everything" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get Everything:</h3>
+
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>What Data is Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json">http://sessions.umn.edu/sessions.json</a></td>
+<td>All data is JSON format</td>
+</tr>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.xml">http://sessions.umn.edu/sessions.xml</a></td>
+<td>All data is XML format</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="filter-by-institution" class="anchor" href="#filter-by-institution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter by Institution</h3>
+
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>What Data is Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json?q=institution_id=UMNTC">http://sessions.umn.edu/sessions.json?q=institution_id=UMNTC</a></td>
+<td>All data for UMNTC institution</td>
+</tr>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json?q=institution_id=UMNMO">http://sessions.umn.edu/sessions.json?q=institution_id=UMNMO</a></td>
+<td>UMNTC</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="filter-by-term" class="anchor" href="#filter-by-term" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter by Term</h3>
+
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>What Data is Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json?q=term_id=1149">http://sessions.umn.edu/sessions.json?q=term_id=1149</a></td>
+<td>All data for Fall 2014 term</td>
+</tr>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json?q=term_id=1155">http://sessions.umn.edu/sessions.json?q=term_id=1155</a></td>
+<td>1159</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="filter-by-academic-career" class="anchor" href="#filter-by-academic-career" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter by Academic Career</h3>
+
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>What Data is Returned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd">http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd</a></td>
+<td>All data for undergrad acadamic career</td>
+</tr>
+<tr>
+<td><a href="http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd">http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd</a></td>
+<td>law</td>
+</tr>
+</tbody>
+</table>
+
+<h3>
+<a id="filter-by-multiple-criteria" class="anchor" href="#filter-by-multiple-criteria" aria-hidden="true"><span class="octicon octicon-link"></span></a>Filter by Multiple Criteria</h3>
+
+<p>Just seperate your criteria with commas</p>
+
+<p><a href="http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd%7Claw,term_id=1149,institution_id=UMNTC">http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd|law,term_id=1149,institution_id=UMNTC</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/umn-asr/sessions_data_service">Sessions data service</a> is maintained by <a href="https://github.com/umn-asr">umn-asr</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
