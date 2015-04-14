@@ -4,7 +4,7 @@ require "json"
 RSpec.describe "Get terms" do
   describe "as json" do
     it "returns a non-empty collection" do
-      get "/terms/index.json"
+      get "/terms.json"
 
       terms = JSON.parse(response.body)
 
