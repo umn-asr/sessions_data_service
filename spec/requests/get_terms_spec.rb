@@ -16,5 +16,12 @@ RSpec.describe "Get terms" do
 
       compare_element_to_documentation(JSON.parse(response.body))
     end
+
+    it "returns a structure of unique terms" do
+      get "/terms.json"
+
+      terms = JSON.parse(response.body)
+      expect(terms).to match(terms.to_set)
+    end
   end
 end
