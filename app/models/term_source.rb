@@ -45,6 +45,6 @@ class TermSource
 EOS
 
     sanitized_sql = sanitize_sql(sql)
-    find_by_sql(sanitized_sql)
+    find_by_sql(sanitized_sql).to_set
   end
 end

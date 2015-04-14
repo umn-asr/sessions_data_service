@@ -13,6 +13,16 @@ class Term
     "term"
   end
 
+  def hash
+    strm.hash
+  end
+
+  def ==(x)
+    strm == x.strm
+  end
+
+  alias_method :eql?, :==
+
   def self.all
     TermSource.all
   end
