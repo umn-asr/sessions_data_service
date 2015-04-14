@@ -10,5 +10,11 @@ RSpec.describe "Get terms" do
 
       expect(terms).not_to be_empty
     end
+
+    it "returns a structure that contains term attributes" do
+      get "/terms.json"
+
+      compare_element_to_documentation(JSON.parse(response.body))
+    end
   end
 end
