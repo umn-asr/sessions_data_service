@@ -1,2 +1,2 @@
-collection @institutions, :root => false, :object_root => false
+collection @institutions
 extends("institutions/show")
