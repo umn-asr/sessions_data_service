@@ -2,7 +2,7 @@ class Institution
   attr_accessor :abbreviation
 
   def initialize(attributes)
-    self.abbreviation = attributes["institution"].downcase
+    self.abbreviation = attributes["institution"]
   end
 
   def institution_id
