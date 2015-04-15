@@ -10,7 +10,7 @@ gem 'activerecord-oracle_enhanced-adapter', :git => 'https://github.com/rsim/ora
 gem 'rabl'
 gem 'oj'
 gem 'query_string_search', '0.0.6'
-gem 'rak-cors', :require => 'rack/cors'
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   gem 'spring'
