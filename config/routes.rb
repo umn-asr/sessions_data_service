@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :terms, only: [:index]
   resources :institutions, only: [:index]
   resources :academic_careers, only: [:index]
+  resources :sessions, only: [:index]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

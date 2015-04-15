@@ -1,2 +1,2 @@
-collection @academic_careers, :root => false, :object_root => false
+collection @academic_careers
 extends("academic_careers/show")

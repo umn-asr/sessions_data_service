@@ -23,7 +23,7 @@ session:
         type: string
       end_date:
         type: string
-      enrollement_open_date:
+      enrollment_open_date:
         type: string
   example:
     type: 'session'
@@ -43,4 +43,4 @@ session:
     session_name: '11 wk Session'
     begin_date: '2015-09-08'
     end_date: '2015-11-23'
-    enrollement_open_date: '2015-05-01'
+    enrollment_open_date: '2015-05-01'
