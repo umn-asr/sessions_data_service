@@ -12,7 +12,7 @@ class DataSource
   end
 
   def self.table_name
-    "nonsense"
+    "dummy_table_for_active_record"
   end
 
   def self.all
