@@ -27,7 +27,7 @@ URL  | What Data is Returned
 
 URL  | What Data is Returned
 ------------- | -------------
-`http://sessions.umn.edu/sessions.json?q=term_id=1149` | All data for Fall 2014 term
+`http://sessions.umn.edu/sessions.json?q=term_id=1159` | All data for Fall 2014 term
 `http://sessions.umn.edu/sessions.json?q=term_id=1155|1159` | All data for Summer 2015 and Fall 2015 terms
 
 ### Filter by Academic Career
@@ -41,7 +41,7 @@ URL  | What Data is Returned
 
 Just seperate your criteria with commas
 
-`http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd|law,term_id=1149,institution_id=UMNTC`
+`http://sessions.umn.edu/sessions.json?q=academic_career_id=ugrd|law,term_id=1159,institution_id=UMNTC`
 
 ## Data Returned
 
