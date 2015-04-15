@@ -19,7 +19,7 @@ RSpec.describe "Get institutions" do
       get "/institutions.json"
 
       institutions = JSON.parse(response.body)
-      expect(terms).to match(terms.to_set)
+      expect(institutions).to match(institutions.to_set)
     end
   end
 end
