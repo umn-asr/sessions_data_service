@@ -1,5 +1,5 @@
 class Session
-  attr_accessor :session_id, :session_code, :session_name,
+  attr_accessor :session_code, :session_name,
     :begin_date, :end_date, :enrollment_open_date, :academic_career,
     :institution, :term
 
@@ -7,10 +7,6 @@ class Session
     self.academic_career = AcademicCareer.new(attributes)
     self.institution = Institution.new(attributes)
     self.term = Term.new(attributes)
-    self.session_id = institution.abbreviation + "_" +
-      academic_career.academic_career_id + "_" +
-      term.strm + "_" +
-      attributes["session_code"]
     self.session_code = attributes["session_code"]
     self.session_name = attributes["xlatlongname"]
     self.begin_date = attributes["sess_begin_dt"].strftime("%F")
@@ -20,6 +16,10 @@ class Session
 
   def type
     "session"
+  end
+
+  def session_id
+    "#{ institution.abbreviation }_#{ academic_career.academic_career_id }_#{ term.strm }_#{ session_code }"
   end
 
   def hash
