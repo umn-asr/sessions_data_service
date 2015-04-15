@@ -1,2 +1,2 @@
-collection @terms, :root => false, :object_root => false
+collection @terms
 extends("terms/show")
