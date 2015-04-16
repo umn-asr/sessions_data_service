@@ -19,3 +19,4 @@
 
 # Ignore config files
 /config/database.yml
+.capistrano
