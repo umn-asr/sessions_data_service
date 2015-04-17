@@ -117,5 +117,24 @@ function format_date(date_string) {
 }
 
 
-$(document).ready(populateSelects());
+function bindEvents() {
+  $('#careerSelect').change(function() {
+    refreshSessions();
+  });
+
+  $('#termSelect').change(function() {
+    refreshSessions();
+  });
+
+  $('#institutionSelect').change(function() {
+    refreshSessions();
+  });
+}
+
+function prepareApp() {
+  bindEvents();
+  populateSelects();
+}
+
+$(document).ready(prepareApp());
 </script>
