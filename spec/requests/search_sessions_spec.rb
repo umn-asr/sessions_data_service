@@ -6,7 +6,7 @@ RSpec.describe "search sessions" do
   describe "by institution" do
     it "returns only sessions that match the institution" do
       get "/sessions.json?q=institution_id=UMNTC"
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 
@@ -19,7 +19,7 @@ RSpec.describe "search sessions" do
       #You have to encode | as %7C or else Rspec will error
       get "/sessions.json?q=institution_id=UMNTC%7CUMNMO"
 
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 
@@ -32,7 +32,7 @@ RSpec.describe "search sessions" do
   describe "by term" do
     it "returns only sessions that match the term" do
       get "/sessions.json?q=term_id=1159"
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 
@@ -44,7 +44,7 @@ RSpec.describe "search sessions" do
     it "returns only sessions that match either term" do
       get "/sessions.json?q=term_id=1155%7C1159"
 
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 
@@ -58,7 +58,7 @@ RSpec.describe "search sessions" do
     it "returns only sessions that match the academic career" do
       get "/sessions.json?q=academic_career_id=ugrd"
 
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 
@@ -70,7 +70,7 @@ RSpec.describe "search sessions" do
     it "returns only sessions that match either academic_career" do
       get "/sessions.json?q=academic_career_id=ugrd%7Claw"
 
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 
@@ -83,7 +83,7 @@ RSpec.describe "search sessions" do
   describe "combining searches" do
     it "returns sessions that match all criteria" do
       get "/sessions.json?q=academic_career_id=ugrd%7Claw,term_id=1159,institution_id=UMNTC"
-      sessions = JSON.parse(response.body)
+      sessions = JSON.parse(response.body)["sessions"]
 
       expect(sessions).not_to be_empty
 

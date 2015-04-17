@@ -6,19 +6,21 @@ RSpec.describe "Get institutions" do
     it "returns a non-empty collection" do
       get "/institutions.json"
 
-      expect(JSON.parse(response.body)).not_to be_empty
+      institutions = JSON.parse(response.body)["institutions"]
+      expect(institutions).not_to be_empty
     end
 
     it "returns a structure that contains institution attributes" do
       get "/institutions.json"
 
-      compare_element_to_documentation(JSON.parse(response.body))
+      institutions = JSON.parse(response.body)["institutions"]
+      compare_element_to_documentation(institutions)
     end
 
     it "returns a structure of unique institutions" do
       get "/institutions.json"
 
-      institutions = JSON.parse(response.body)
+      institutions = JSON.parse(response.body)["institutions"]
       expect(institutions).to match(institutions.to_set)
     end
   end

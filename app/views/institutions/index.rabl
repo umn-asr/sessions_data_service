@@ -1,2 +1,2 @@
-collection @institutions
+collection @institutions => :institutions
 extends("institutions/show")

@@ -1,2 +1,2 @@
-collection @sessions
+collection @sessions => :sessions
 extends("sessions/show")
