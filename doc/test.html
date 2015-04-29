@@ -108,7 +108,7 @@ function refreshSessions() {
 
 function format_date(date_string) {
   var d = new Date(Date.parse(date_string));
-  return d.getUTCMonth() + "/" +
+  return (d.getUTCMonth() + 1) + "/" +
     d.getUTCDate() + "/" +
     d.getUTCFullYear();
 }
