@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  get "/", to: redirect("http://umn-asr.github.io/sessions_data_service/")
+
   resources :terms, only: [:index]
   resources :institutions, only: [:index]
   resources :academic_careers, only: [:index]
   resources :sessions, only: [:index]
 
-  root 'sessions#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
