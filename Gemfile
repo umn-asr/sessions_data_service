@@ -15,8 +15,8 @@ gem 'rack-cors', :require => 'rack/cors'
 group :development, :test do
   gem 'spring'
 
-  gem 'rspec', '~> 3.2'
-  gem 'rspec-rails', '~> 3.2'
+  gem 'rspec', '~> 3.3'
+  gem 'rspec-rails', '~> 3.3'
 end
 
 group :development do
