@@ -13,7 +13,7 @@ gem 'query_string_search', '~> 0.0.7'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
 group :development, :test do
-  gem 'spring', '~> 1.3.4'
+  gem 'spring', '~> 1.3.6'
 
   gem 'rspec', '~> 3.3'
   gem 'rspec-rails', '~> 3.3'
