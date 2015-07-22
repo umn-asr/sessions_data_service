@@ -4,8 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 
-gem 'ruby-oci8', '2.1.7'
-gem 'activerecord-oracle_enhanced-adapter', :git => 'https://github.com/rsim/oracle-enhanced.git', :branch => 'rails42'
+gem 'ruby-oci8', '2.1.8'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.6.0'
 
 gem 'rabl', '~> 0.11.6'
 gem 'oj', '~> 2.12.10'
