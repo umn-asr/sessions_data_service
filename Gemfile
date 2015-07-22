@@ -8,7 +8,7 @@ gem 'ruby-oci8', '2.1.7'
 gem 'activerecord-oracle_enhanced-adapter', :git => 'https://github.com/rsim/oracle-enhanced.git', :branch => 'rails42'
 
 gem 'rabl', '~> 0.11.6'
-gem 'oj', '~> 2.12.2'
+gem 'oj', '~> 2.12.10'
 gem 'query_string_search', '~> 0.0.7'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
