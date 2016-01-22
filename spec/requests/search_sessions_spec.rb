@@ -92,5 +92,21 @@ RSpec.describe "search sessions" do
       expect(session["term"]["term_id"]).to eq("1159")
       expect(session["institution"]["institution_id"]).to eq("UMNTC")
     end
+
+    it "returns sessions sorted by session_code within a institution and term" do
+      get "/sessions.json"
+      sessions = JSON.parse(response.body)["sessions"]
+      random_session = sessions.sample
+      random_institution_id = random_session["institution"]["institution_id"]
+      random_term_id = random_session["term"]["term_id"]
+      random_career_id = random_session["academic_career"]["academic_career_id"]
+      get "/sessions.json?q=institution_id=#{random_institution_id},term_id=#{random_term_id},academic_career_id=#{random_career_id}"
+      sessions_for_term_and_institution = JSON.parse(response.body)["sessions"]
+
+      expect(sessions_for_term_and_institution).not_to be_empty
+
+      returned_session_codes = sessions_for_term_and_institution.map { |x| x["session_code"] }
+      assert_equal returned_session_codes, returned_session_codes.sort
+    end
   end
 end
