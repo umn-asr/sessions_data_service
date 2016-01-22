@@ -19,7 +19,7 @@ class DataSource
     sql = <<EOS
     WITH eff_session_names AS (
       SELECT fieldname, fieldvalue, XLATLONGNAME, XLATSHORTNAME, max(effdt) as effdt
-      FROM asr_warehouse_esup.cs_psxlatitem
+      FROM #{Rails.configuration.x.peoplesoft_models_schema}.cs_psxlatitem
       WHERE effdt <= sysdate and
       fieldname = 'SESSION_CODE'
       GROUP BY fieldname, fieldvalue, XLATLONGNAME, XLATSHORTNAME
@@ -33,10 +33,10 @@ class DataSource
       sess_begin_dt,
       sess_end_dt,
       enroll_open_dt
-    from asr_warehouse_esup.cs_ps_session_tbl sessions
-    left join asr_warehouse_esup.eff_session_names on
+    from #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_session_tbl sessions
+    left join #{Rails.configuration.x.peoplesoft_models_schema}.eff_session_names on
       sessions.session_code = eff_session_names.fieldvalue
-    right join asr_warehouse_esup.cs_ps_um_cl_schd_dts schedule_dates on
+    right join #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_um_cl_schd_dts schedule_dates on
       sessions.strm = schedule_dates.strm
 EOS
 

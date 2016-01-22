@@ -33,5 +33,7 @@ module SessionsDataService
           :max_age => 0
       end
     end
+
+    config.x.peoplesoft_models_schema = "asr_warehouse"
   end
 end
