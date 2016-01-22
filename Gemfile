@@ -2,10 +2,10 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.3'
+gem 'rails', '4.2.5'
 
-gem 'ruby-oci8', '2.1.8'
-gem 'activerecord-oracle_enhanced-adapter', '~> 1.6.0'
+gem 'ruby-oci8', '2.2.1'
+gem 'activerecord-oracle_enhanced-adapter', '~> 1.6'
 
 gem 'rabl', '~> 0.11.6'
 gem 'oj', '~> 2.12.10'
