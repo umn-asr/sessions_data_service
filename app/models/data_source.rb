@@ -38,6 +38,8 @@ class DataSource
       sessions.session_code = eff_session_names.fieldvalue
     right join #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_um_cl_schd_dts schedule_dates on
       sessions.strm = schedule_dates.strm
+    order by
+      session_code
 EOS
 
     sanitized_sql = sanitize_sql(sql)
