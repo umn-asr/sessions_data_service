@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.5.1'
 
 gem 'ruby-oci8', '2.2.1'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.6'
