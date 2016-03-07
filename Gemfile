@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.5.2'
 
 gem 'ruby-oci8', '2.2.1'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.6'
