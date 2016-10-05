@@ -20,7 +20,6 @@ class AcademicCareer
   alias_method :eql?, :==
 
   def self.all
-    AcademicCareerSource.all
+    AcademicCareerSource.all.sort_by(&:academic_career_id)
   end
-
 end
