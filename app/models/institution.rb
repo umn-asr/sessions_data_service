@@ -24,7 +24,6 @@ class Institution
   alias_method :eql?, :==
 
   def self.all
-    InstitutionSource.all
+    InstitutionSource.all.sort_by(&:abbreviation)
   end
-
 end

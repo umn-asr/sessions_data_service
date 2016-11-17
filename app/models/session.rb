@@ -33,6 +33,6 @@ class Session
   alias_method :eql?, :==
 
   def self.all
-    SessionSource.all
+    SessionSource.all.sort_by(&:session_code)
   end
 end

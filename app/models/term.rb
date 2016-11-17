@@ -24,6 +24,6 @@ class Term
   alias_method :eql?, :==
 
   def self.all
-    TermSource.all
+    TermSource.all.sort_by(&:strm)
   end
 end
