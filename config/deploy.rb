@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.4.0'
+lock '3.7.2'
 
 set :application, 'sessions_data_service'
 set :repo_url, 'git@github.com:umn-asr/sessions_data_service.git'
