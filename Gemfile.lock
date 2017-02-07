@@ -41,7 +41,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.3)
     builder (3.2.2)
-    capistrano (3.7.2)
+    capistrano (3.6.1)
       airbrussh (>= 1.0.0)
       capistrano-harrow
       i18n
@@ -151,7 +151,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 1.6)
-  capistrano (~> 3.7.0)
+  capistrano (~> 3.6.0)
   capistrano-bundler (~> 1.2.0)
   capistrano-passenger (~> 0.2.0)
   capistrano-rails (~> 1.2.0)

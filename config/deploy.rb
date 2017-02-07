@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock '3.7.2'
+lock '3.6.1'
 
 set :application, 'sessions_data_service'
 set :repo_url, 'git@github.com:umn-asr/sessions_data_service.git'
@@ -14,3 +14,8 @@ set :linked_dirs, %w(bin log tmp/cache vendor/bundle)
 set :linked_files, %w{config/database.yml config/initializers/environment_variables.rb}
 
 set :passenger_restart_with_touch,  true
+
+set :ssh_options,
+    user: fetch(:user),
+    forward_agent: true,
+    auth_methods: %w(publickey)
