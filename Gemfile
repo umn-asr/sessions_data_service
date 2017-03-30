@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
-ruby "2.3.3"
+ruby "2.4.1"
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 
 gem 'ruby-oci8', '~> 2.2.1'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.6'
 
 gem 'rabl', '~> 0.11.6'
-gem 'oj', '~> 2.12.10'
+gem 'oj', '~> 2.18.0'
 gem 'query_string_search', '~> 0.0.7'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
