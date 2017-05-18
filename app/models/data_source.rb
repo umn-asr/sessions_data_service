@@ -18,27 +18,44 @@ class DataSource
   def self.all
     sql = <<EOS
     WITH eff_session_names AS (
-      SELECT fieldname, fieldvalue, XLATLONGNAME, XLATSHORTNAME, max(effdt) as effdt
-      FROM #{Rails.configuration.x.peoplesoft_models_schema}.cs_psxlatitem
-      WHERE effdt <= sysdate and
-      fieldname = 'SESSION_CODE'
-      GROUP BY fieldname, fieldvalue, XLATLONGNAME, XLATSHORTNAME
+      SELECT
+        all_items.fieldvalue,
+        all_items.xlatlongname as session_name
+      FROM
+          #{Rails.configuration.x.peoplesoft_models_schema}.cs_psxlatitem all_items
+      INNER JOIN (
+          SELECT
+              fieldname,
+              fieldvalue,
+              max(effdt) as effdt
+          FROM
+              #{Rails.configuration.x.peoplesoft_models_schema}.cs_psxlatitem
+          WHERE
+              effdt <= sysdate
+          GROUP BY
+              fieldname, fieldvalue
+      ) effective_items ON
+        all_items.fieldname = effective_items.fieldname
+        AND all_items.fieldvalue = effective_items.fieldvalue
+        AND all_items.effdt = effective_items.effdt
+      WHERE
+          all_items.fieldname = 'SESSION_CODE'
     )
-    select
+    SELECT
       sessions.acad_career,
       sessions.institution,
       sessions.strm,
-      session_code,
-      xlatlongname,
-      sess_begin_dt,
-      sess_end_dt,
-      enroll_open_dt
-    from #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_session_tbl sessions
-    left join #{Rails.configuration.x.peoplesoft_models_schema}.eff_session_names on
+      sessions.session_code,
+      eff_session_names.session_name,
+      sessions.sess_begin_dt,
+      sessions.sess_end_dt,
+      sessions.enroll_open_dt
+    FROM
+      #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_session_tbl sessions
+    INNER JOIN
+      #{Rails.configuration.x.peoplesoft_models_schema}.eff_session_names ON
       sessions.session_code = eff_session_names.fieldvalue
-    right join #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_um_cl_schd_dts schedule_dates on
-      sessions.strm = schedule_dates.strm
-    order by
+    ORDER BY
       session_code
 EOS
 

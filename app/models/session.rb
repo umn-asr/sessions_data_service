@@ -8,7 +8,7 @@ class Session
     self.institution = Institution.new(attributes)
     self.term = Term.new(attributes)
     self.session_code = attributes["session_code"]
-    self.session_name = attributes["xlatlongname"]
+    self.session_name = attributes["session_name"]
     self.begin_date = attributes["sess_begin_dt"].strftime("%F")
     self.end_date = attributes["sess_end_dt"].strftime("%F")
     self.enrollment_open_date = attributes["enroll_open_dt"].strftime("%F")
