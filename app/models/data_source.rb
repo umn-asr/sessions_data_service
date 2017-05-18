@@ -55,6 +55,10 @@ class DataSource
     INNER JOIN
       #{Rails.configuration.x.peoplesoft_models_schema}.eff_session_names ON
       sessions.session_code = eff_session_names.fieldvalue
+    INNER JOIN
+      -- Restricts the terms returned to just those that can can be scheduled
+      #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_um_cl_schd_dts terms_allowed_to_be_scheduled ON
+      sessions.strm = terms_allowed_to_be_scheduled.strm
     ORDER BY
       session_code
 EOS
