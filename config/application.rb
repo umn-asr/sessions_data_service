@@ -35,5 +35,7 @@ module SessionsDataService
     end
 
     config.x.peoplesoft_models_schema = "asr_warehouse"
+
+    config.log_level = :info
   end
 end
