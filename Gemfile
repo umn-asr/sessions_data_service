@@ -5,6 +5,7 @@ gem 'rails', '4.2.11.1'
 
 gem 'ruby-oci8', '~> 2.2.1'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.6'
+gem 'capistrano-logrotate', '0.4.0'
 
 gem 'rabl', '~> 0.11.6'
 gem 'oj', '~> 2.18.0'
