@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.4.1"
 
-gem 'rails', '4.2.8'
+gem 'rails', '4.2.11.1'
 
 gem 'ruby-oci8', '~> 2.2.1'
 gem 'activerecord-oracle_enhanced-adapter', '~> 1.6'
@@ -14,6 +14,7 @@ gem 'lograge'
 gem 'logstash-event'
 
 group :development, :test do
+  gem "lastpassify"
   gem 'spring', '~> 1.3.6'
 
   gem 'rspec-rails', '~> 3.5'
