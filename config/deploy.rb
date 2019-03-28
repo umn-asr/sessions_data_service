@@ -19,3 +19,21 @@ set :ssh_options,
     user: fetch(:user),
     forward_agent: true,
     auth_methods: %w(publickey)
+
+set :role, :web
+set :logrotate_role, :web
+set :logrotate_conf_path, -> { File.join('/swadm/etc', 'logrotate.d', "#{fetch(:application)}_#{fetch(:stage)}") }
+set :logrotate_log_path, -> { File.join(shared_path, 'log') }
+
+namespace :deploy do
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+
+  after :publishing, :restart
+  after :published, 'logrotate:config'
+end
