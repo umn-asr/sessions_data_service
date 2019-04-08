@@ -5,6 +5,8 @@ require 'capistrano/setup'
 require 'capistrano/deploy'
 require 'capistrano/bundler'
 require 'capistrano/passenger'
+require "capistrano/logrotate"
+
 # Include tasks from other gems included in your Gemfile
 #
 # For documentation on these, see for example:

@@ -50,6 +50,8 @@ GEM
       capistrano (~> 3.1)
       sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
+    capistrano-logrotate (0.4.0)
+      capistrano (~> 3.0)
     capistrano-passenger (0.2.0)
       capistrano (~> 3.0)
     capistrano-rails (1.2.2)
@@ -160,6 +162,7 @@ DEPENDENCIES
   activerecord-oracle_enhanced-adapter (~> 1.6)
   capistrano (~> 3.6.0)
   capistrano-bundler (~> 1.2.0)
+  capistrano-logrotate (= 0.4.0)
   capistrano-passenger (~> 0.2.0)
   capistrano-rails (~> 1.2.0)
   lastpassify
