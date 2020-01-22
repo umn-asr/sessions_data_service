@@ -27,4 +27,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.2.0'
   gem "capistrano-logrotate", "0.4.0"
   gem 'capistrano-passenger', '~> 0.2.0'
+  gem 'overcommit'
+  gem 'reek', '~> 5.0'
+  gem 'rubocop', '~> 0.57.2'
 end
