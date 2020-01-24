@@ -68,3 +68,42 @@ session:
   end_date: '2015-11-23'
   enrollement_open_date: '2015-05-01'
 ```
+
+## Development
+
+* [Setup](#setup)
+* [Testing](#testing)
+* [Server](#server)
+* [Deployment](#deployment)
+
+### Setup
+
+To get started with this app, run `./script/setup` to get dependencies installed and setup.
+
+### Testing
+
+This app uses RSpec for testing. There's a series of requests specs under `./spec/requests/`.
+
+To run the test suite, run `./script/test`.
+
+To run an individual test, `script/test path/to/single_spec.rb`.
+
+### Server
+
+- `script/server` starts a web server for local development, [http://localhost:3000](http://localhost:3000)
+
+### Deployment
+
+We have two deployment targets:
+
+1. production: https://sessions.umn.edu
+1. staging: https://sessions-staging.umn.edu
+
+We have a deploy script that runs Capistrano under the covers to deploy the app: 
+
+- `script/deploy`
+  - Deploys to staging.
+  - Requires you to enter your SSH passphrase
+- `script/deploy production`
+  - Deploys to production
+  - Requires you to enter your SSH passphrase
