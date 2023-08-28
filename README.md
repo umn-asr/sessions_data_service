@@ -107,3 +107,8 @@ We have a deploy script that runs Capistrano under the covers to deploy the app:
 - `script/deploy production`
   - Deploys to production
   - Requires you to enter your SSH passphrase
+
+### Owners
+
+Who is responsible for the web application after initial development?
+ * [See this spreadsheet](https://docs.google.com/spreadsheets/d/1JOCG2MZnzsQ_ja8B-pEBqARSXyvoR0TwDb_APO3cdL4/edit?usp=sharing).
