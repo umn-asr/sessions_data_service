@@ -23,8 +23,8 @@ bundle check >/dev/null 2>&1  || {
 }
 fi
 
-# echo "==> Checking Gems..."
-# bundle exec bundle audit check --update
+echo "==> Checking Gems..."
+bundle exec bundle audit check --update
 
 if [ -f ".overcommit.yml" ]; then
 echo "==> Installing Overcommit hooks…"
