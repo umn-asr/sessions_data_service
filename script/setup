@@ -22,7 +22,6 @@ echo "==> cleaning database"
 RAILS_ENV=development bin/rake oracle:clean
 RAILS_ENV=test bin/rake oracle:clean
 
-
 if [ -z "$RAILS_ENV" ] && [ -z "$RACK_ENV" ]; then
   # Only things for a development environment will run inside here
   # Do things that need to be done to the application to set up for the first
