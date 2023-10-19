@@ -1,10 +1,10 @@
 source 'https://artifactory.umn.edu/artifactory/api/gems/asr-rubygems'
 ruby "2.7.8"
 
-gem 'rails', '~> 5.1.7'
+gem 'rails', '~> 5.2.8.1'
 
 gem 'ruby-oci8', '~> 2.2.1'
-gem 'activerecord-oracle_enhanced-adapter', '~> 1.7'
+gem 'activerecord-oracle_enhanced-adapter', '~> 5.2.8'
 
 gem 'rabl', '~> 0.16'
 gem 'oj', '~> 2.18.0'
