@@ -7,4 +7,5 @@ Rails.application.configure do
       exception_object: event.payload[:exception_object],
     }
   end
+  config.lograge.base_controller_class = "ActionController::API"
 end
