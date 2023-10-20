@@ -1,14 +1,20 @@
+# Manages searchable sessions
 class SearchableSessions
   extend Forwardable
   def_delegators :all_sessions, :each, :select
 
-  attr_accessor :all_sessions
+  attr_reader :all_sessions
 
   def initialize(all_sessions)
-    self.all_sessions = all_sessions.map { |c| SearchableSession.new(c) }
+    self.all_sessions = all_sessions.map { |session| SearchableSession.new(session) }
   end
+
+  private
+
+  attr_writer :all_sessions
 end
 
+# Manages a searchable session
 class SearchableSession < SimpleDelegator
   def institution_id
     @institution ||= session.institution.institution_id

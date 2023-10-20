@@ -1,5 +1,6 @@
+# The model for institution data
 class Institution
-  attr_accessor :abbreviation
+  attr_reader :abbreviation
 
   def initialize(attributes)
     self.abbreviation = attributes["institution"]
@@ -26,4 +27,8 @@ class Institution
   def self.all
     InstitutionSource.all.sort_by(&:abbreviation)
   end
+
+  private
+
+  attr_writer :abbreviation
 end

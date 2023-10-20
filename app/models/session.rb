@@ -1,5 +1,6 @@
+# The model for session data
 class Session
-  attr_accessor :session_code, :session_name,
+  attr_reader :session_code, :session_name,
     :begin_date, :end_date, :enrollment_open_date, :academic_career,
     :institution, :term
 
@@ -35,4 +36,10 @@ class Session
   def self.all
     SessionSource.all.sort_by(&:session_code)
   end
+
+  private
+
+  attr_writer :session_code, :session_name,
+    :begin_date, :end_date, :enrollment_open_date, :academic_career,
+    :institution, :term
 end

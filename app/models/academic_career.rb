@@ -1,5 +1,6 @@
+# Returns academic career data
 class AcademicCareer
-  attr_accessor :academic_career_id
+  attr_reader :academic_career_id
 
   def initialize(attributes)
     self.academic_career_id = attributes["acad_career"]
@@ -22,4 +23,8 @@ class AcademicCareer
   def self.all
     AcademicCareerSource.all.sort_by(&:academic_career_id)
   end
+
+  private
+
+  attr_writer :academic_career_id
 end

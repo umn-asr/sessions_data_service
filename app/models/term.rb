@@ -1,5 +1,6 @@
+# Model for terms data
 class Term
-  attr_accessor :strm
+  attr_reader :strm
 
   def initialize(attributes)
     self.strm = attributes["strm"]
@@ -26,4 +27,8 @@ class Term
   def self.all
     TermSource.all.sort_by(&:strm)
   end
+
+  private
+
+  attr_writer :strm
 end

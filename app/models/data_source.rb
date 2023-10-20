@@ -74,4 +74,11 @@ EOS
   def self.peoplesoft_models_schema
     Rails.configuration.x.peoplesoft_models_schema
   end
+
+  private
+
+  # :reek:UtilityFunction
+  def self.peoplesoft_models_schema
+    Rails.configuration.x.peoplesoft_models_schema
+  end
 end
