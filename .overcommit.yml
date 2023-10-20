@@ -1,9 +1,0 @@
-PreCommit:
-  Reek:
-    enabled: true
-    on_fail: warn
-    required_executable: './bin/reek'
-  RuboCop:
-    enabled: true
-    on_fail: warn
-    required_executable: './bin/rubocop'
