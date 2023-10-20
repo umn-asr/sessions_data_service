@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  web:
+    logging:
+      options:
+        max-size: 50m
+    build: '.'
+    ports:
+      - 127.0.0.1:3000:3000
+      - 127.0.0.1:3001:3001
+    volumes:
+      - '.:/app'
+      - '~/.ssh:/home/root/.ssh'
+    entrypoint: ["script/_entrypoint.sh"]
+    command: 'bash -c ./script/_server'
+    command: >
+      bash -c 'until ./script/_database_check.sh;
+      do
+        :
+      done && echo "Database check complete" && ./script/_web_container_setup && ./script/_update && ./script/_server'

@@ -1,33 +1,36 @@
-#!/bin/sh
+#!/bin/bash
 
-# script/setup: Set up application for the first time after cloning, or set it
-#               back to the initial first unused state.
+# script/setup: Tells Docker to setup the project by configuring YAML config files
+# & getting and building Docker images.
 
 set -e
 
 cd "$(dirname "$0")/.."
 
-script/bootstrap
+echo "==> Checking architecture"
+if [ `uname -m` = "arm64" ]; then
+  echo "====> arm64 architecture detected"
+  cp docker-compose.arm64.yml docker-compose.yml
 
-echo "*************************************************"
-echo "While this app sets up, review the README.md file and update anything that's incorrect"
-echo "https://github.umn.edu/asrweb/knowledgebucket/blob/master/best_practices/readmes.md"
-echo "*************************************************"
-
-echo "===> Getting passwords from LastPass if available"
-[ -f ./bin/lastpassify ] && [ -f ./config/database.example.yml ] && ./bin/lastpassify
-[ -f ./bin/lastpassify ] && [ -f ./config/secrets.example.yml ] && ./bin/lastpassify config/secrets.example.yml config/secrets.yml
-
-echo "==> cleaning database"
-RAILS_ENV=development bin/rake oracle:clean
-RAILS_ENV=test bin/rake oracle:clean
-
-if [ -z "$RAILS_ENV" ] && [ -z "$RACK_ENV" ]; then
-  # Only things for a development environment will run inside here
-  # Do things that need to be done to the application to set up for the first
-  # time. Or things needed to be run to to reset the application back to first
-  # use experience. These things are scoped to the application's domain.
-  true
+  echo "==> Setting up lastpass passwords for arm64"
+  source ~/.asr/functions/lastpass_config_helper.sh > /dev/null 2>&1
+  echo "==> Running lpassify"
+  echo `lpassify`
+else
+  echo "====> x86 architecture detected"
+  cp docker-compose.x86.yml docker-compose.yml
+  cp config/database.docker.yml config/database.yml
 fi
 
-echo "==> App is now ready to go!"
+echo "ENV[\"STUB_INTERNET_ID\"] = \"$USER\"" > ./config/initializers/local.rb
+
+echo "==> Getting/Building Docker images"
+docker compose build --no-cache
+docker compose pull
+
+echo "==> Creating a pre-commit hook"
+cp script/hooks/* .git/hooks
+
+docker compose run --rm web script/_setup $(whoami)
+
+echo "==> All done!"

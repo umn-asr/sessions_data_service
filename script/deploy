@@ -1,18 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-# script/deploy: Deploy the application
-#   change the url opened at the end of the script to the URL of the application, if applicable
-
+# script/deploy: Tells Docker to run its deploy script
 
 set -e
 
 cd "$(dirname "$0")/.."
 
-echo "===> Deploying to $1"
-bundle exec cap "$1" deploy
-
-case $1 in
-  "staging") open https://github.umn.edu/asrweb/knowledgebucket/blob/master/best_practices/deployment.md;;
-  "production") open https://github.umn.edu/asrweb/knowledgebucket/blob/master/best_practices/deployment.md;;
-  *) echo "Not able to open the deployed application";;
-esac
+if [ -n "$1" ]; then
+  docker compose exec web script/_deploy "$1"
+else
+  docker compose exec web script/_deploy
+fi
