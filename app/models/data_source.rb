@@ -1,3 +1,5 @@
+require "ostruct"
+
 class DataSource
 
   include ActiveRecord::Sanitization
@@ -13,6 +15,10 @@ class DataSource
 
   def self.table_name
     "dummy_table_for_active_record"
+  end
+
+  def self.attribute_types
+    OpenStruct.new(:each_key => [])
   end
 
   def self.all
