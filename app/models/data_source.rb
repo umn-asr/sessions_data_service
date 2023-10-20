@@ -1,5 +1,5 @@
-require "ostruct"
 
+# The base class used to query data models
 class DataSource
 
   include ActiveRecord::Sanitization
@@ -17,10 +17,6 @@ class DataSource
     "dummy_table_for_active_record"
   end
 
-  def self.attribute_types
-    OpenStruct.new(:each_key => [])
-  end
-
   def self.all
     sql = <<EOS
     WITH eff_session_names AS (
@@ -28,14 +24,14 @@ class DataSource
         all_items.fieldvalue,
         all_items.xlatlongname as session_name
       FROM
-          #{Rails.configuration.x.peoplesoft_models_schema}.cs_psxlatitem all_items
+          #{peoplesoft_models_schema}.cs_psxlatitem all_items
       INNER JOIN (
           SELECT
               fieldname,
               fieldvalue,
               max(effdt) as effdt
           FROM
-              #{Rails.configuration.x.peoplesoft_models_schema}.cs_psxlatitem
+              #{peoplesoft_models_schema}.cs_psxlatitem
           WHERE
               effdt <= sysdate
           GROUP BY
@@ -57,19 +53,27 @@ class DataSource
       sessions.sess_end_dt,
       sessions.enroll_open_dt
     FROM
-      #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_session_tbl sessions
+      #{peoplesoft_models_schema}.cs_ps_session_tbl sessions
     INNER JOIN
-      #{Rails.configuration.x.peoplesoft_models_schema}.eff_session_names ON
+      #{peoplesoft_models_schema}.eff_session_names ON
       sessions.session_code = eff_session_names.fieldvalue
     INNER JOIN
       -- Restricts the terms returned to just those that can can be scheduled
-      #{Rails.configuration.x.peoplesoft_models_schema}.cs_ps_um_cl_schd_dts terms_allowed_to_be_scheduled ON
+      #{peoplesoft_models_schema}.cs_ps_um_cl_schd_dts terms_allowed_to_be_scheduled ON
       sessions.strm = terms_allowed_to_be_scheduled.strm
     ORDER BY
       session_code
 EOS
 
     sanitized_sql = sanitize_sql(sql)
-    find_by_sql(sanitized_sql).to_set
+    result_set = connection.select_all(sanitized_sql)
+    result_set.map { |record| instantiate(record, []) }.uniq
+  end
+
+  private
+
+  # :reek:UtilityFunction
+  def self.peoplesoft_models_schema
+    Rails.configuration.x.peoplesoft_models_schema
   end
 end
