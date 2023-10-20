@@ -1,4 +1,3 @@
-require "ostruct"
 
 class DataSource
 
@@ -15,10 +14,6 @@ class DataSource
 
   def self.table_name
     "dummy_table_for_active_record"
-  end
-
-  def self.attribute_types
-    OpenStruct.new(:each_key => [])
   end
 
   def self.all
@@ -70,6 +65,7 @@ class DataSource
 EOS
 
     sanitized_sql = sanitize_sql(sql)
-    find_by_sql(sanitized_sql).to_set
+    result_set = connection.select_all(sanitized_sql)
+    result_set.map { |record| instantiate(record, []) }.uniq
   end
 end
