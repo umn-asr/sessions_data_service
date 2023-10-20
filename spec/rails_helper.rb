@@ -71,5 +71,5 @@ def compare_element_to_documentation(element)
 end
 
 def get_documentation(type)
-  YAML.load(File.read("doc/resources/#{type}.yml"))
+  YAML.safe_load(File.read("doc/resources/#{type}.yml"))
 end
