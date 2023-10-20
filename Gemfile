@@ -20,7 +20,7 @@ group :development, :test do
   gem "listen"
   gem "spring", "~> 1.3.6"
   gem "oracle_cleaner"
-  gem "rspec-rails", "~> 3.9"
+  gem "rspec-rails", "~> 6.0"
 end
 
 group :development do
