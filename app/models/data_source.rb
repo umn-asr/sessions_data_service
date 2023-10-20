@@ -1,7 +1,5 @@
-
 # The base class used to query data models
 class DataSource
-
   include ActiveRecord::Sanitization
   extend ActiveRecord::Querying
 
@@ -68,6 +66,13 @@ EOS
     sanitized_sql = sanitize_sql(sql)
     result_set = connection.select_all(sanitized_sql)
     result_set.map { |record| instantiate(record, []) }.uniq
+  end
+
+  private
+
+  # :reek:UtilityFunction
+  def self.peoplesoft_models_schema
+    Rails.configuration.x.peoplesoft_models_schema
   end
 
   private

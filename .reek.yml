@@ -2,3 +2,4 @@ exclude_paths:
   - bundle
   - .bundle
   - db/migrate
+  - spec/rails_helper.rb

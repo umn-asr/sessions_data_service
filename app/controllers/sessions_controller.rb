@@ -1,3 +1,4 @@
+# Controls requests for session data
 class SessionsController < ApplicationController
   def index
     sessions = Session.all

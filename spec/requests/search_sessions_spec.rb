@@ -1,8 +1,7 @@
 require "rails_helper"
-require 'json'
+require "json"
 
 RSpec.describe "search sessions" do
-
   describe "by institution" do
     it "returns only sessions that match the institution" do
       get "/sessions.json?q=institution_id=UMNTC"
@@ -16,7 +15,7 @@ RSpec.describe "search sessions" do
     end
 
     it "returns only sessions that match either institution" do
-      #You have to encode | as %7C or else Rspec will error
+      # You have to encode | as %7C or else Rspec will error
       get "/sessions.json?q=institution_id=UMNTC%7CUMNMO"
 
       sessions = JSON.parse(response.body)["sessions"]
@@ -24,7 +23,7 @@ RSpec.describe "search sessions" do
       expect(sessions).not_to be_empty
 
       sessions.each do |session|
-        expect(session["institution"]["institution_id"]).to satisfy { |id| %w(UMNTC UMNMO).include?(id) }
+        expect(session["institution"]["institution_id"]).to satisfy { |id| %w[UMNTC UMNMO].include?(id) }
       end
     end
   end
@@ -49,7 +48,7 @@ RSpec.describe "search sessions" do
       expect(sessions).not_to be_empty
 
       sessions.each do |session|
-        expect(session["term"]["term_id"]).to satisfy { |id| %w(1155 1159).include?(id) }
+        expect(session["term"]["term_id"]).to satisfy { |id| %w[1155 1159].include?(id) }
       end
     end
   end
@@ -75,7 +74,7 @@ RSpec.describe "search sessions" do
       expect(sessions).not_to be_empty
 
       sessions.each do |session|
-        expect(session["academic_career"]["academic_career_id"].downcase).to satisfy { |id| %w(ugrd law).include?(id) }
+        expect(session["academic_career"]["academic_career_id"].downcase).to satisfy { |id| %w[ugrd law].include?(id) }
       end
     end
   end
@@ -88,7 +87,7 @@ RSpec.describe "search sessions" do
       expect(sessions).not_to be_empty
 
       session = sessions.sample
-      expect(session["academic_career"]["academic_career_id"].downcase).to satisfy { |id| %w(ugrd law).include?(id) }
+      expect(session["academic_career"]["academic_career_id"].downcase).to satisfy { |id| %w[ugrd law].include?(id) }
       expect(session["term"]["term_id"]).to eq("1159")
       expect(session["institution"]["institution_id"]).to eq("UMNTC")
     end

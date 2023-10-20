@@ -1,5 +1,6 @@
+# The model for institution data
 class Institution
-  attr_accessor :abbreviation
+  attr_reader :abbreviation
 
   def initialize(attributes)
     self.abbreviation = attributes["institution"]
@@ -17,8 +18,8 @@ class Institution
     abbreviation.hash
   end
 
-  def ==(x)
-    abbreviation == x.abbreviation
+  def ==(other)
+    abbreviation == other.abbreviation
   end
 
   alias_method :eql?, :==
@@ -26,4 +27,8 @@ class Institution
   def self.all
     InstitutionSource.all.sort_by(&:abbreviation)
   end
+
+  private
+
+  attr_writer :abbreviation
 end

@@ -1,5 +1,6 @@
+# The model for session data
 class Session
-  attr_accessor :session_code, :session_name,
+  attr_reader :session_code, :session_name,
     :begin_date, :end_date, :enrollment_open_date, :academic_career,
     :institution, :term
 
@@ -19,15 +20,15 @@ class Session
   end
 
   def session_id
-    "#{ institution.abbreviation }_#{ academic_career.academic_career_id }_#{ term.strm }_#{ session_code }"
+    "#{institution.abbreviation}_#{academic_career.academic_career_id}_#{term.strm}_#{session_code}"
   end
 
   def hash
     session_id.hash
   end
 
-  def ==(x)
-    session_id == x.session_id
+  def ==(other)
+    session_id == other.session_id
   end
 
   alias_method :eql?, :==
@@ -35,4 +36,10 @@ class Session
   def self.all
     SessionSource.all.sort_by(&:session_code)
   end
+
+  private
+
+  attr_writer :session_code, :session_name,
+    :begin_date, :end_date, :enrollment_open_date, :academic_career,
+    :institution, :term
 end
