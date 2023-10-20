@@ -17,8 +17,8 @@ class Institution
     abbreviation.hash
   end
 
-  def ==(x)
-    abbreviation == x.abbreviation
+  def ==(other)
+    abbreviation == other.abbreviation
   end
 
   alias_method :eql?, :==

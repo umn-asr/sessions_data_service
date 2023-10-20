@@ -1,7 +1,5 @@
-
 # The base class used to query data models
 class DataSource
-
   include ActiveRecord::Sanitization
   extend ActiveRecord::Querying
 

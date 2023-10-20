@@ -5,13 +5,11 @@ class SearchableSessions
   attr_accessor :all_sessions
 
   def initialize(all_sessions)
-    self.all_sessions = all_sessions.map {|c| SearchableSession.new(c) }
+    self.all_sessions = all_sessions.map { |c| SearchableSession.new(c) }
   end
 end
 
-
 class SearchableSession < SimpleDelegator
-
   def institution_id
     @institution ||= session.institution.institution_id
   end
@@ -27,5 +25,4 @@ class SearchableSession < SimpleDelegator
   def session
     __getobj__
   end
-
 end

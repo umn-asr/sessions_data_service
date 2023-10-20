@@ -17,8 +17,8 @@ class Term
     strm.hash
   end
 
-  def ==(x)
-    strm == x.strm
+  def ==(other)
+    strm == other.strm
   end
 
   alias_method :eql?, :==

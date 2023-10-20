@@ -19,15 +19,15 @@ class Session
   end
 
   def session_id
-    "#{ institution.abbreviation }_#{ academic_career.academic_career_id }_#{ term.strm }_#{ session_code }"
+    "#{institution.abbreviation}_#{academic_career.academic_career_id}_#{term.strm}_#{session_code}"
   end
 
   def hash
     session_id.hash
   end
 
-  def ==(x)
-    session_id == x.session_id
+  def ==(other)
+    session_id == other.session_id
   end
 
   alias_method :eql?, :==

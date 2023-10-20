@@ -8,7 +8,7 @@ cd "$(dirname "$0")/.."
 
 
 if [ -n "$1" ]; then
-  docker compose exec -T web standardrb "$1"
+  docker compose exec -T web standardrb "$1" --fix
 else
-  docker compose exec -T -d web standardrb
+  docker compose exec -T -d web standardrb --fix
 fi
