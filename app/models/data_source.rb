@@ -68,14 +68,7 @@ EOS
     result_set.map { |record| instantiate(record, []) }.uniq
   end
 
-  private
-
-  # :reek:UtilityFunction
-  def self.peoplesoft_models_schema
-    Rails.configuration.x.peoplesoft_models_schema
-  end
-
-  private
+  private_class_method
 
   # :reek:UtilityFunction
   def self.peoplesoft_models_schema
