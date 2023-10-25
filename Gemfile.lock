@@ -149,6 +149,8 @@ GEM
     parser (2.7.2.0)
       ast (~> 2.4.1)
     psych (3.1.0)
+    puma (5.6.7)
+      nio4r (~> 2.0)
     query_string_search (0.0.7)
     rabl (0.16.1)
       activesupport (>= 2.3.14)
@@ -278,6 +280,7 @@ DEPENDENCIES
   loofah (~> 2.19.1)
   oj (~> 2.18.0)
   oracle_cleaner
+  puma (~> 5.2)
   query_string_search (~> 0.0.7)
   rabl (~> 0.16)
   rack-cors (~> 1.1.1)
@@ -289,7 +292,7 @@ DEPENDENCIES
   standard
 
 RUBY VERSION
-   ruby 2.7.8p225
+   ruby 3.0.4p208
 
 BUNDLED WITH
-   2.1.4
+   2.3.26

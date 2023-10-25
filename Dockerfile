@@ -26,7 +26,7 @@ RUN mkdir -p /lpass
 RUN export PATH="/usr/bin:$PATH" && export OPENSSL_ROOT_DIR=/usr/bin && export CFLAGS="-fcommon" && cd /etc/lastpass-cli && PREFIX=/lpass make && PREFIX=/lpass make install
 
 # Build main image based off an image we have already created
-FROM asr-docker-local.artifactory.umn.edu/ruby_2_7_oracle:0.0.1 as sessions
+FROM asr-docker-local.artifactory.umn.edu/ruby_3_2_2_node_18_oracle:0.0.2 as sessions
 ARG BUNDLER_VERSION="2.3.26"
 
 COPY --from=lpass_builder /lpass/bin/lpass /usr/bin/lpass
