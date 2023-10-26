@@ -32,6 +32,7 @@ group :development do
   gem "capistrano-bundler", "~> 1.2.0"
   gem "capistrano-logrotate", "0.4.0"
   gem "capistrano-passenger", "~> 0.2.0"
-  gem "reek", "~> 5.0"
+  gem "reek", "~> 6.1"
+  gem "rubocop-ast", "~> 1.30"
   gem "standard"
 end

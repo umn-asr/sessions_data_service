@@ -90,7 +90,6 @@ GEM
     capistrano-rails (1.2.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    codeclimate-engine-rb (0.4.2)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
@@ -146,9 +145,9 @@ GEM
     oj (2.18.5)
     oracle_cleaner (0.1.0)
     parallel (1.23.0)
-    parser (2.7.2.0)
+    parser (3.2.2.4)
       ast (~> 2.4.1)
-    psych (3.1.0)
+      racc
     puma (5.6.7)
       nio4r (~> 2.0)
     query_string_search (0.0.7)
@@ -192,11 +191,9 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    reek (5.6.0)
-      codeclimate-engine-rb (~> 0.4.0)
+    reek (6.1.4)
       kwalify (~> 0.7.0)
-      parser (>= 2.5.0.0, < 2.8, != 2.5.1.1)
-      psych (~> 3.1.0)
+      parser (~> 3.2.0)
       rainbow (>= 2.0, < 4.0)
     regexp_parser (2.8.2)
     request_store (1.5.1)
@@ -228,8 +225,8 @@ GEM
       rubocop-ast (>= 1.2.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (1.4.1)
-      parser (>= 2.7.1.5)
+    rubocop-ast (1.30.0)
+      parser (>= 3.2.1.0)
     rubocop-performance (1.9.2)
       rubocop (>= 0.90.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -285,14 +282,15 @@ DEPENDENCIES
   rabl (~> 0.16)
   rack-cors (~> 1.1.1)
   rails (~> 6.1.7.6)
-  reek (~> 5.0)
+  reek (~> 6.1)
   rspec-rails (~> 6.0)
+  rubocop-ast (~> 1.30)
   ruby-oci8 (~> 2.2)
   spring (~> 1.3.6)
   standard
 
 RUBY VERSION
-   ruby 3.0.4p208
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.3.26
