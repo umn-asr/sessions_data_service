@@ -1,5 +1,5 @@
 source "https://artifactory.umn.edu/artifactory/api/gems/asr-rubygems"
-ruby "2.7.8"
+ruby "3.2.2"
 
 gem "rails", "~> 6.1.7.6"
 
@@ -20,6 +20,7 @@ group :development, :test do
   gem "listen"
   gem "spring", "~> 1.3.6"
   gem "oracle_cleaner"
+  gem "puma", "~> 5.2"
   gem "rspec-rails", "~> 6.0"
 end
 
@@ -31,6 +32,7 @@ group :development do
   gem "capistrano-bundler", "~> 1.2.0"
   gem "capistrano-logrotate", "0.4.0"
   gem "capistrano-passenger", "~> 0.2.0"
-  gem "reek", "~> 5.0"
+  gem "reek", "~> 6.1"
+  gem "rubocop-ast", "~> 1.30"
   gem "standard"
 end
