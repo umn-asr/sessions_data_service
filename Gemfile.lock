@@ -174,7 +174,7 @@ GEM
       racc
     psych (5.1.1.1)
       stringio
-    puma (5.6.7)
+    puma (6.4.0)
       nio4r (~> 2.0)
     query_string_search (0.0.7)
     rabl (0.16.1)
@@ -321,7 +321,7 @@ DEPENDENCIES
   loofah
   oj (~> 2.18.0)
   oracle_cleaner
-  puma (~> 5.2)
+  puma
   query_string_search (~> 0.0.7)
   rabl (~> 0.16)
   rack-cors (~> 1.1.1)

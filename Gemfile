@@ -20,7 +20,7 @@ group :development, :test do
   gem "listen"
   gem "spring", "~> 1.3.6"
   gem "oracle_cleaner"
-  gem "puma", "~> 5.2"
+  gem "puma"
   gem "rspec-rails", "~> 6.0"
 end
 
