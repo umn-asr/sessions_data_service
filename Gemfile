@@ -1,10 +1,10 @@
 source "https://artifactory.umn.edu/artifactory/api/gems/asr-rubygems"
 ruby "3.2.2"
 
-gem "rails", "~> 7.0.8"
+gem "rails", "~> 7.1"
 
 gem "ruby-oci8", "~> 2.2"
-gem "activerecord-oracle_enhanced-adapter", "~> 7.0"
+gem "activerecord-oracle_enhanced-adapter"
 gem "bootsnap"
 
 gem "rabl", "~> 0.16"
@@ -13,7 +13,7 @@ gem "query_string_search", "~> 0.0.7"
 gem "rack-cors", "~> 1.1.1", require: "rack/cors"
 gem "lograge"
 gem "logstash-event"
-gem "loofah", "~>2.19.1"
+gem "loofah"
 
 group :development, :test do
   gem "lastpassify"
