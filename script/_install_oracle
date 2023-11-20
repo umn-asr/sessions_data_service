@@ -1,0 +1,48 @@
+#!/bin/bash
+set -euo pipefail
+
+# script to install the Oracle Instant Client
+
+echo "==> Installing Oracle Instant Client on platform '${TARGETPLATFORM}'"
+
+el_suffix=""
+case $TARGETPLATFORM in
+  "linux/arm64")
+    oic_arch="arm64"
+    ;;
+  "linux/amd64")
+    oic_arch="x64"
+    if [ "$ORACLE_IC_VERSION" = "19.19" ]; then
+      # OCI v19.19 binaries have a special suffix because 
+      # they are for Oracle Linux 9 or RHEL 9 ONLY
+      el_suffix=".el9"
+    fi
+    ;;
+  *)
+    echo "ERROR: Target platform '${TARGETPLATFORM}' is not supported."
+    exit 1
+    ;;
+esac
+
+artifactory_base_url="https://artifactory.umn.edu/artifactory/asr-generic/oracle-instantclient"
+oci_basic_url="${artifactory_base_url}/${ORACLE_IC_VERSION}/linux_${oic_arch}/instantclient-basiclite-linux.${oic_arch}-${ORACLE_IC_VERSION}.0.0.0dbru${el_suffix}.zip"
+oci_sdk_url="${artifactory_base_url}/${ORACLE_IC_VERSION}/linux_${oic_arch}/instantclient-sdk-linux.${oic_arch}-${ORACLE_IC_VERSION}.0.0.0dbru${el_suffix}.zip"
+oci_sqlplus_url="${artifactory_base_url}/${ORACLE_IC_VERSION}/linux_${oic_arch}/instantclient-sqlplus-linux.${oic_arch}-${ORACLE_IC_VERSION}.0.0.0dbru${el_suffix}.zip"
+
+mkdir -p /opt/oracle
+cd /opt/oracle
+
+curl -o "instantclient-basic-linux.zip" "${oci_basic_url}"
+unzip "instantclient-basic-linux.zip" && rm "instantclient-basic-linux.zip"
+
+curl -o "instantclient-sdk-linux.zip" "${oci_sdk_url}"
+unzip "instantclient-sdk-linux.zip" && rm "instantclient-sdk-linux.zip"
+
+curl -o "instantclient-sqlplus-linux.zip" "${oci_sqlplus_url}"
+unzip "instantclient-sqlplus-linux.zip" && rm "instantclient-sqlplus-linux.zip"
+
+cd instantclient_*
+echo $(pwd) > /etc/ld.so.conf.d/oracle-instantclient.conf
+ldconfig
+
+ln -s "$(pwd)/sqlplus" "/usr/local/bin/sqlplus"
