@@ -7,15 +7,16 @@ set -e
 
 cd "$(dirname "$0")/.."
 
+echo "==> Pulling lastpass container"
+docker pull asrcustomsolutions/lastpass:latest
+
+echo "==> Running lpassify"
+script/_lastpassify
+
 echo "==> Checking architecture"
 if [ `uname -m` = "arm64" ]; then
   echo "====> arm64 architecture detected"
   cp docker-compose.arm64.yml docker-compose.yml
-
-  echo "==> Setting up lastpass passwords for arm64"
-  source ~/.asr/functions/lastpass_config_helper.sh > /dev/null 2>&1
-  echo "==> Running lpassify"
-  echo `lpassify`
 else
   echo "====> x86 architecture detected"
   cp docker-compose.x86.yml docker-compose.yml
