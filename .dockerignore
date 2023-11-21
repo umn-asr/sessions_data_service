@@ -1,0 +1,9 @@
+**/.DS_Store
+.bundle
+.env*
+.git/
+bundle/
+config/database.yml
+config/initializers/local.rb
+log/
+tmp/

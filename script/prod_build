@@ -1,0 +1,60 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+export APP_NAME="$(basename $(pwd))"
+export DOCKERFILE="Dockerfile.prod"
+export PUSH_IMAGE=false
+export SCRIPT=$(basename -- $0)
+
+export MODIFIED_INDICATOR="$(git diff --quiet || echo '-modified')"
+export GIT_COMMIT="$(git rev-parse --short --verify HEAD)$MODIFIED_INDICATOR"
+
+export DOCKER_REPO_HOSTNAME="asr-docker-local.artifactory.umn.edu"
+export IMAGE_TAG_WITH_GIT_COMMIT="$DOCKER_REPO_HOSTNAME/$APP_NAME:$GIT_COMMIT"
+export IMAGE_TAG_LATEST="$DOCKER_REPO_HOSTNAME/$APP_NAME:latest"
+
+while test $# -gt 0; do
+  case "$1" in
+    -h|--help)
+      echo "$SCRIPT - build the production docker image"
+      echo " "
+      echo "$SCRIPT [options] application [arguments]"
+      echo " "
+      echo "options:"
+      echo "-h, --help                show this help message"
+      echo "-p, --push                push the image to Artifactory"
+      exit 0
+      ;;
+    -p|--push)
+      PUSH_IMAGE=true
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+# build the docker image
+docker build \
+  --build-arg="GIT_COMMIT=$GIT_COMMIT" \
+  --build-arg="PROCESSORS=$(($(nproc --all)-1))" \
+  -t "$IMAGE_TAG_WITH_GIT_COMMIT" \
+  -t "$IMAGE_TAG_LATEST" \
+  -f "$DOCKERFILE" \
+  .
+
+# push the image if the '--push' flag is set
+if [ "$PUSH_IMAGE" = true ]; then
+
+  # abort if the Git working tree is modified
+  if [ -n "$MODIFIED_INDICATOR" ]; then
+    echo -e '\033[31mERROR:\033[0m Unable to push image when working tree is modified!'
+    exit 1
+  fi
+
+  docker push "$IMAGE_TAG_WITH_GIT_COMMIT"
+  docker push "$IMAGE_TAG_LATEST"
+fi

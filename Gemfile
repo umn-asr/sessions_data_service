@@ -14,13 +14,13 @@ gem "rack-cors", "~> 1.1.1", require: "rack/cors"
 gem "lograge"
 gem "logstash-event"
 gem "loofah", "~>2.19.1"
+gem "puma", "~> 5.2"
 
 group :development, :test do
   gem "lastpassify"
   gem "listen"
   gem "spring", "~> 1.3.6"
   gem "oracle_cleaner"
-  gem "puma", "~> 5.2"
   gem "rspec-rails", "~> 6.0"
 end
 
