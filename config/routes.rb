@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get "/", to: redirect("http://umn-asr.github.io/sessions_data_service/")
+  get "/up", to: "health#show"
 
   resources :terms, only: [:index]
   resources :institutions, only: [:index]
