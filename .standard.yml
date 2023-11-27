@@ -1,0 +1,11 @@
+fix: true
+parallel: true
+default_ignores: true
+
+ignore:
+  - 'spec/rails_helper.rb'
+  - '**/Gemfile'
+  - 'bundle/**/*'
+  - 'site/**/*.rb'
+  - 'Rakefile'
+  - '**/*.rake'
