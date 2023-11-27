@@ -4,8 +4,12 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore index files
+**/.DS_Store
+
 # Ignore bundler config.
 /.bundle
+/bundle
 /vendor/bundle
 
 # Ignore the default SQLite database.
@@ -19,5 +23,10 @@
 
 # Ignore config files
 /config/database.yml
+/config/initializers/local.rb
 .capistrano
 docker-compose.yml
+
+# Ignore environment files
+.env.production
+.env.staging
