@@ -1,0 +1,15 @@
+servers:
+  web:
+    hosts:
+      - <%= ENV["WEB_HOST"] %>
+    labels:
+      traefik.http.routers.sessions-web.rule: Host(`sessions-staging.umn.edu`) || Host(`sessions.qat.asr.umn.edu`)
+
+env:
+  clear:
+    RAILS_ENV: "staging"
+
+logging:
+  driver: journald
+  options:
+    tag: "sessions-web-staging"

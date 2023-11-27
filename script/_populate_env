@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+
+# script/_populate_env: Populate the environment variables
+
+ENVIRONMENT=$1
+
+ENV_FILE=".env.${ENVIRONMENT}"
+ERB_FILE="${ENV_FILE}.erb"
+
+# exit if the environment specified doesn't exist
+if [ ! -f $ERB_FILE ]; then
+  echo "ERROR: Invalid environment: '$ENVIRONMENT'"
+  exit 1
+fi
+
+# prompt to overwrite if the .env file already exists
+if [ -f "$ENV_FILE" ]; then
+  read -p  "The file '$ENV_FILE' already exists. Do you want to overwrite? (y/n) " -r
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      exit 0
+  fi
+fi
+
+# login to LastPass if necessary
+if [[ ! $(lpass status) == "Logged in"* ]]; then
+  lpass login $LASTPASS_USERNAME@umn.edu
+fi
+
+# populate the environment file
+erb "${ERB_FILE}" > "${ENV_FILE}"
