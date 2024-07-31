@@ -1,9 +1,9 @@
 servers:
   web:
     hosts:
-      - <%= ENV["WEB_HOST"] %>
+      - asr-container-prd-web-public-01.oit.umn.edu
     labels:
-      traefik.http.routers.sessions-web.rule: Host(`sessions.umn.edu`) || Host(`sessions.prd.asr.umn.edu`)
+      traefik.http.routers.sessions-web.rule: Host(`sessions.umn.edu`) || Host(`sessions.asr-container-prd-web-public-01.asr.umn.edu`)
 
 env:
   clear:
