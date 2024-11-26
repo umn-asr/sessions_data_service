@@ -1,11 +1,11 @@
-version: '3'
-
 services:
   web:
     logging:
       options:
         max-size: 50m
     build: '.'
+    environment:
+      NLS_LANG: "AMERICAN_AMERICA.WE8ISO8859P1"
     env_file:
       - '.env'
     ports:
