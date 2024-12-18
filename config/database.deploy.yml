@@ -1,5 +1,5 @@
 <%= ENV["RAILS_ENV"] %>:
-  adapter: oracle_enhanced
+  adapter: oracle
   host: <%= ENV["DATABASE_HOST"] %>
   database: <%= ENV["DATABASE_NAME"] %>
   username: <%= ENV["DATABASE_USER"] %>

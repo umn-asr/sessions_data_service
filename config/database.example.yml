@@ -1,5 +1,5 @@
 global_defaults: &global_defaults
-  adapter: oracle_enhanced
+  adapter: oracle
 
 development:
   <<: *global_defaults
