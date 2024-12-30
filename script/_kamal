@@ -1,0 +1,13 @@
+# Kamal helper function for Bash
+
+KAMAL_VERSION="1.9.2"
+
+function kamal() {
+  docker run -it --rm \
+    -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" \
+    -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" \
+    -v "${PWD}:/workdir" \
+    -v "kamal_ssh_data:/root/.ssh" \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    ghcr.io/basecamp/kamal:v$KAMAL_VERSION "$@"
+}
