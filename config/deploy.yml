@@ -42,13 +42,14 @@ ssh:
 
 # Configure builder setup.
 builder:
-  dockerfile: Dockerfile.prod
+  dockerfile: Dockerfile
   remote:
     arch: amd64
   args:
     GID: 3002
     GIT_COMMIT: <%= %x(git rev-parse --short --verify HEAD) %>
     UID: 3002
+  target: production
 
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
