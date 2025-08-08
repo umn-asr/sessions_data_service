@@ -1,17 +1,100 @@
-# Build Lastpass CLI in separate build container
-FROM asr-docker-local.artifactory.umn.edu/ruby_3_2_2_node_18_oracle:0.0.2 as sessions
-ARG BUNDLER_VERSION="2.3.26"
+ARG ORACLE_IC_VERSION="19.19"
+ARG RUBY_VERSION="3.2.2"
 
-WORKDIR /app
+### base ###
+FROM ruby:$RUBY_VERSION-slim AS base
 
-ENV MAKE="make --jobs 8"
+ARG GID=1000
+ARG ORACLE_IC_VERSION
+ARG PORT=3000
+ARG TARGETPLATFORM
+ARG UID=1000
 
+ENV HOME="/home/app"
+ENV NLS_LANG="AMERICAN_AMERICA.WE8ISO8859P1"
+ENV PORT=$PORT
+ENV TZ="America/Chicago"
+
+EXPOSE $PORT
+WORKDIR $HOME
+
+# configure the app user
+RUN groupadd -g $GID app \
+  && useradd --create-home --no-log-init -u $UID -g $GID app \
+  && chown app:app -R $HOME
+
+# install production dependencies
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+  curl \
+  libaio1 \
+  unzip \
+  && rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
+
+# install the oracle instant client
+COPY script/_install_oracle install_oracle
+RUN ./install_oracle && rm install_oracle
+
+
+### builder ###
+FROM base AS builder
+
+ARG PROCESSORS="8"
+ENV MAKE="make --jobs ${PROCESSORS}"
+
+# install development dependencies
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+  build-essential \
+  ca-certificates \
+  git \
+  && rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
+
+
+### bundle ###
+FROM builder AS bundle
+
+WORKDIR "/tmp"
+
+# install production ruby gems
 COPY Gemfile Gemfile.lock ./
+RUN bundle config set deployment "true" \
+  && bundle config set without "development test" \
+  && bundle install
 
-RUN gem install bundler:$BUNDLER_VERSION
 
-RUN bundle install
+### production ###
+FROM base AS production
 
-COPY . .
+ARG GIT_COMMIT
 
-CMD rails s
+ENV GIT_COMMIT=$GIT_COMMIT
+ENV RAILS_LOG_TO_STDOUT="true"
+
+# copy the application files
+COPY --chown=app:app . $HOME
+COPY --from=bundle /usr/local/bundle /usr/local/bundle
+COPY --from=bundle --chown=app:app /tmp/vendor/bundle "${HOME}/vendor/bundle"
+COPY --chown=app:app config/database.deploy.yml "${HOME}/config/database.yml"
+
+# start the app
+USER app
+ENTRYPOINT [ "script/_entrypoint.sh" ]
+CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+
+
+### development ###
+FROM builder AS development
+
+# install development ruby gems
+COPY Gemfile Gemfile.lock ./
+RUN bundle install \
+  && chown app:app -R /usr/local/bundle
+
+# copy the application files
+COPY --chown=app:app . $HOME
+
+# start the app
+USER app
+ENTRYPOINT [ "script/_entrypoint.sh" ]
+CMD ["script/_server"]

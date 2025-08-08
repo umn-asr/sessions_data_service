@@ -4,7 +4,6 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 export APP_NAME="$(basename $(pwd))"
-export DOCKERFILE="Dockerfile.prod"
 export PUSH_IMAGE=false
 export SCRIPT=$(basename -- $0)
 
@@ -40,10 +39,9 @@ done
 # build the docker image
 docker build \
   --build-arg="GIT_COMMIT=$GIT_COMMIT" \
-  --build-arg="PROCESSORS=$(($(nproc --all)-1))" \
+  --target production \
   -t "$IMAGE_TAG_WITH_GIT_COMMIT" \
   -t "$IMAGE_TAG_LATEST" \
-  -f "$DOCKERFILE" \
   .
 
 # push the image if the '--push' flag is set

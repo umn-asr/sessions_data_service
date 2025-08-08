@@ -3,15 +3,16 @@ services:
     logging:
       options:
         max-size: 50m
-    build: '.'
+    build:
+      context: .
+      target: development
     environment:
       NLS_LANG: "AMERICAN_AMERICA.WE8ISO8859P1"
     ports:
       - 127.0.0.1:3000:3000
       - 127.0.0.1:3001:3001
     volumes:
-      - '.:/app'
-      - '~/.ssh:/home/root/.ssh'
+      - '.:/home/app'
     entrypoint: ["script/_entrypoint.sh"]
     command: 'bash -c ./script/_server'
     command: >
