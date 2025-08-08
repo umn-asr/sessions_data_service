@@ -11,7 +11,6 @@ export MODIFIED_INDICATOR="$(git diff --quiet || echo '-modified')"
 export GIT_COMMIT="$(git rev-parse --short --verify HEAD)$MODIFIED_INDICATOR"
 
 export DOCKER_REPO_HOSTNAME="asr-docker-local.artifactory.umn.edu"
-export IMAGE_TAG_WITH_GIT_COMMIT="$DOCKER_REPO_HOSTNAME/$APP_NAME:$GIT_COMMIT"
 export IMAGE_TAG_LATEST="$DOCKER_REPO_HOSTNAME/$APP_NAME:latest"
 
 while test $# -gt 0; do
@@ -40,7 +39,6 @@ done
 docker build \
   --build-arg="GIT_COMMIT=$GIT_COMMIT" \
   --target production \
-  -t "$IMAGE_TAG_WITH_GIT_COMMIT" \
   -t "$IMAGE_TAG_LATEST" \
   .
 
@@ -53,6 +51,5 @@ if [ "$PUSH_IMAGE" = true ]; then
     exit 1
   fi
 
-  docker push "$IMAGE_TAG_WITH_GIT_COMMIT"
   docker push "$IMAGE_TAG_LATEST"
 fi
