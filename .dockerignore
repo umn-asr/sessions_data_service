@@ -1,9 +1,13 @@
 **/.DS_Store
+.bash_history
 .bundle
+.cache/
 .env*
 .git/
+.local/
 bundle/
 config/database.yml
 config/initializers/local.rb
+docker-compose.yml
 log/
 tmp/
