@@ -17,6 +17,9 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+.bash_history
+/.cache
+/.local
 /log/*
 !/log/.keep
 /tmp
