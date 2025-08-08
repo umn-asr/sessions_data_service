@@ -1,0 +1,58 @@
+
+auto_auth {
+
+   method {
+      type = "approle"
+      config = {
+         role_id_file_path = "<%= ENV["HOME"] %>/config/vault/role_id.<%= ENV["RAILS_ENV"] %>"
+         secret_id_file_path = "<%= ENV["HOME"] %>/.wrapped-secret"
+         secret_id_response_wrapping_path = "auth/approle/role/app_sessions_<%= ENV["RAILS_ENV"] %>/secret-id"
+      }
+   }
+
+   sink "file" {
+      config = {
+            path = "<%= ENV["HOME"] %>/.vault-token"
+      }
+   }
+}
+
+cache { }
+
+template_config {
+  static_secret_render_interval = "5m"
+  exit_on_retry_failure         = false
+  max_connections_per_host      = 10
+}
+
+vault {
+  address = "<%= ENV["VAULT_ADDR"] %>"
+  namespace = "<%= ENV["VAULT_NAMESPACE"] %>"
+}
+
+env_template "DATABASE_HOST" {
+  contents             = "{{ with secret \"secret/data/apps/sessions/<%= ENV["RAILS_ENV"] %>\" }}{{ .Data.data.DATABASE_HOST }}{{ end }}"
+  error_on_missing_key = true
+}
+env_template "DATABASE_NAME" {
+  contents             = "{{ with secret \"secret/data/apps/sessions/<%= ENV["RAILS_ENV"] %>\" }}{{ .Data.data.DATABASE_NAME }}{{ end }}"
+  error_on_missing_key = true
+}
+env_template "DATABASE_PASSWORD" {
+  contents             = "{{ with secret \"secret/data/apps/sessions/<%= ENV["RAILS_ENV"] %>\" }}{{ .Data.data.DATABASE_PASSWORD }}{{ end }}"
+  error_on_missing_key = true
+}
+env_template "DATABASE_USER" {
+  contents             = "{{ with secret \"secret/data/apps/sessions/<%= ENV["RAILS_ENV"] %>\" }}{{ .Data.data.DATABASE_USER }}{{ end }}"
+  error_on_missing_key = true
+}
+env_template "SECRET_KEY_BASE" {
+  contents             = "{{ with secret \"secret/data/apps/sessions/<%= ENV["RAILS_ENV"] %>\" }}{{ .Data.data.SECRET_KEY_BASE }}{{ end }}"
+  error_on_missing_key = true
+}
+
+exec {
+  command                   = <%= ENV.fetch("VAULT_AGENT_COMMAND", ["./script/_entrypoint.sh", "bin/rails", "server", "-b", "0.0.0.0"]) %>
+  restart_on_secret_changes = "always"
+  restart_stop_signal       = "SIGTERM"
+}

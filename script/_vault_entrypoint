@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "==> Configuring HCP Vault in the '${RAILS_ENV}' environment"
+echo "Using HCP Vault URL: ${VAULT_ADDR}"
+
+# populate the Vault Agent configuration file
+erb "${HOME}/config/vault/agent.hcl.erb" > "${HOME}/agent.hcl"
+
+# write the Vault Agent response wrapped secret to disk
+if [ -f "${HOME}/.vault-token" ]; then
+  vault write -f -wrap-ttl=10s -field=wrapping_token \
+    "auth/approle/role/app_sessions_${RAILS_ENV}/secret-id" > "${HOME}/.wrapped-secret"
+  echo "Vault wrapped secret populated via an existing token"
+else
+  echo "${VAULT_WRAPPED_SECRET}" > "${HOME}/.wrapped-secret"
+  echo "Vault wrapped secret populated via environment variable"
+fi
+
+exec "$@"
