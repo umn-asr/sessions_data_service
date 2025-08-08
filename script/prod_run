@@ -5,6 +5,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
+ADDITIONAL_DOCKER_FLAGS="${ADDITIONAL_DOCKER_FLAGS:-}"
 CONTAINER_NAME="$(basename $(pwd))"
 DOCKER_REPO_HOSTNAME="asr-docker-local.artifactory.umn.edu"
 IMAGE_NAME="$DOCKER_REPO_HOSTNAME/$CONTAINER_NAME:latest"
@@ -28,7 +29,7 @@ echo "==> Running container for ${IMAGE_NAME}"
 APP_ROLE_SECRET_PATH="auth/approle/role/app_${VAULT_APP_NAME}_${RAILS_ENV}/secret-id"
 VAULT_WRAPPED_SECRET=$(vault write -f -wrap-ttl=10s -field=wrapping_token "$APP_ROLE_SECRET_PATH")
 docker run \
-  --rm \
+  --rm $ADDITIONAL_DOCKER_FLAGS \
   --name="$CONTAINER_NAME" \
   --env="RACK_ENV=$RAILS_ENV" \
   --env="RAILS_ENV=$RAILS_ENV" \
