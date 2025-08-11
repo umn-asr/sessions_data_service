@@ -1,0 +1,26 @@
+# HCP Vault helper function for Bash
+
+HASHICORP_VAULT_ADDR="https://hcp-vault-private-vault-fc507e0d.5d5b1f21.z1.hashicorp.cloud:8200"
+HASHICORP_VAULT_NAMESPACE="admin/asr"
+HASHICORP_VAULT_VERSION="1.20-ent"
+
+function vault() {
+  docker run --rm \
+    --env="SKIP_SETCAP=true" \
+    --env="VAULT_ADDR=$HASHICORP_VAULT_ADDR" \
+    --env="VAULT_NAMESPACE=$HASHICORP_VAULT_NAMESPACE" \
+    --pull="always" \
+    --quiet \
+    --user="vault" \
+    --volume="$(pwd):/workdir" \
+    --volume="vault_cli:/home/vault" \
+    --workdir="/workdir" \
+    hashicorp/vault-enterprise:$HASHICORP_VAULT_VERSION "$@"
+}
+
+function vault_saml_login() {
+  TOKEN_LOOKUP=$(vault token lookup 2>&1) || true
+  if [[ "$TOKEN_LOOKUP" =~ "Error" ]]; then
+    vault login -method=saml -no-print=true --namespace=admin
+  fi
+}

@@ -1,0 +1,37 @@
+#!/bin/bash
+set -euo pipefail
+
+# script/prod_run: Run the production Docker container against the staging or production environments.
+
+cd "$(dirname "$0")/.."
+
+CONTAINER_NAME="$(basename $(pwd))"
+DOCKER_REPO_HOSTNAME="asr-docker-local.artifactory.umn.edu"
+IMAGE_NAME="$DOCKER_REPO_HOSTNAME/$CONTAINER_NAME:latest"
+VAULT_APP_NAME="sessions"
+
+if [ $# -eq 0 ]; then
+  echo "Provide an environment: script/prod_run [production|staging]"
+  exit 1
+fi
+
+RAILS_ENV=$1
+
+echo "==> Initializing HCP Vault..."
+source "./script/_vault"
+vault_saml_login
+
+echo "==> Building container for ${IMAGE_NAME}"
+./script/prod_build "$RAILS_ENV"
+
+echo "==> Running container for ${IMAGE_NAME}"
+APP_ROLE_SECRET_PATH="auth/approle/role/app_${VAULT_APP_NAME}_${RAILS_ENV}/secret-id"
+VAULT_WRAPPED_SECRET=$(vault write -f -wrap-ttl=10s -field=wrapping_token "$APP_ROLE_SECRET_PATH")
+docker run \
+  --rm \
+  --name="$CONTAINER_NAME" \
+  --env="RACK_ENV=$RAILS_ENV" \
+  --env="RAILS_ENV=$RAILS_ENV" \
+  --env="VAULT_WRAPPED_SECRET=$VAULT_WRAPPED_SECRET" \
+  --publish="127.0.0.1:3000:3000" \
+  "$IMAGE_NAME"
