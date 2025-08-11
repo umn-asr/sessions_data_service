@@ -6,6 +6,7 @@ HASHICORP_VAULT_VERSION="1.20-ent"
 
 function vault() {
   docker run --rm \
+    --env="INTERNET_ID=$(whoami)" \
     --env="SKIP_SETCAP=true" \
     --env="VAULT_ADDR=$HASHICORP_VAULT_ADDR" \
     --env="VAULT_NAMESPACE=$HASHICORP_VAULT_NAMESPACE" \
