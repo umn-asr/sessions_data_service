@@ -7,11 +7,9 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-echo "==> Pulling lastpass container"
-docker pull asrcustomsolutions/lastpass:latest
-
-echo "==> Running lpassify"
-script/_lastpassify
+echo "==> Authenticate with Vault"
+source "./script/_vault"
+vault_saml_login
 
 echo "==> Checking architecture"
 if [ `uname -m` = "arm64" ]; then
@@ -32,6 +30,9 @@ docker compose pull
 echo "==> Creating a pre-commit hook"
 cp script/hooks/* .git/hooks
 
-docker compose run --rm web script/_setup $(whoami)
+docker compose run --rm \
+  --user root \
+  --volume="vault_cli:/home/vault" \
+  web script/_setup $(whoami)
 
 echo "==> All done!"

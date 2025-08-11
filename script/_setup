@@ -6,3 +6,17 @@
 
 # Put here any commands that need to be run on the container when running
 #   setup.  For example: setting passwords
+
+export USER=$1
+export VAULT_TOKEN="$(cat /home/vault/.vault-token)"
+
+export DEVELOPMENT_DATABASE_HOST=$(vault kv get -field DATABASE_HOST secret/dev/$USER/oracle/development)
+export DEVELOPMENT_DATABASE_NAME=$(vault kv get -field DATABASE_NAME secret/dev/$USER/oracle/development)
+export DEVELOPMENT_DATABASE_PASSWORD=$(vault kv get -field DATABASE_PASSWORD secret/dev/$USER/oracle/development)
+export DEVELOPMENT_DATABASE_USER=$(vault kv get -field DATABASE_USER secret/dev/$USER/oracle/development)
+export TEST_DATABASE_HOST=$(vault kv get -field DATABASE_HOST secret/dev/$USER/oracle/test)
+export TEST_DATABASE_NAME=$(vault kv get -field DATABASE_NAME secret/dev/$USER/oracle/test)
+export TEST_DATABASE_PASSWORD=$(vault kv get -field DATABASE_PASSWORD secret/dev/$USER/oracle/test)
+export TEST_DATABASE_USER=$(vault kv get -field DATABASE_USER secret/dev/$USER/oracle/test)
+
+erb config/database.development.yml.erb > config/database.yml
