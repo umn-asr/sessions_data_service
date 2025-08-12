@@ -3,10 +3,16 @@
 KAMAL_VERSION="1.9.2"
 
 function kamal() {
+  ARTIFACTORY_IDENTITY_TOKEN=${ARTIFACTORY_IDENTITY_TOKEN:-""}
+  VAULT_WRAPPED_SECRET=${VAULT_WRAPPED_SECRET:-""}
+
   docker run -it --rm \
+    -e ARTIFACTORY_IDENTITY_TOKEN=$ARTIFACTORY_IDENTITY_TOKEN \
     -e SSH_AUTH_SOCK="/run/host-services/ssh-auth.sock" \
+    -e VAULT_WRAPPED_SECRET="$VAULT_WRAPPED_SECRET" \
     -v "/run/host-services/ssh-auth.sock:/run/host-services/ssh-auth.sock" \
     -v "${PWD}:/workdir" \
+    -v "kamal_docker_data:/root/.docker" \
     -v "kamal_ssh_data:/root/.ssh" \
     -v /var/run/docker.sock:/var/run/docker.sock \
     ghcr.io/basecamp/kamal:v$KAMAL_VERSION "$@"

@@ -13,17 +13,20 @@ fi
 
 echo "==> Deploying"
 
-# populate the deployment environment variables
-docker run \
-  -it --rm \
-  -e LASTPASS_USERNAME=$(whoami) \
-  -v "$(pwd):/workdir" \
-  asrcustomsolutions/lastpass:latest \
-  ./script/_populate_env "$1"
+# source helper scripts
+source "./script/_kamal"
+source "./script/_vault"
+
+# build and push app image to registry
+vault_saml_login
+ARTIFACTORY_IDENTITY_TOKEN=$(vault kv get -field="identity_token" -mount="secret" "artifactory/asrweb")
+kamal registry login --destination="$1"
+kamal build push --destination="$1"
 
 # push the latest environment variables using Kamal
-source "./script/_kamal"
+APP_ROLE_SECRET_PATH="auth/approle/role/app_sessions_${1}/secret-id"
+VAULT_WRAPPED_SECRET=$(vault write -f -wrap-ttl=5m -field=wrapping_token "$APP_ROLE_SECRET_PATH")
 kamal env push --destination="$1"
 
 # deploy using Kamal
-kamal deploy --destination="$1"
+kamal deploy --skip-push --destination="$1"
