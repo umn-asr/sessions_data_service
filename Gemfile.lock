@@ -112,8 +112,6 @@ GEM
     json (2.6.3)
     kwalify (0.7.2)
     language_server-protocol (3.17.0.3)
-    lastpassify (0.6.0)
-      thor
     lint_roller (1.1.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -294,7 +292,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   bundler-audit
-  lastpassify
   listen
   lograge
   logstash-event
