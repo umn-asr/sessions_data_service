@@ -11,5 +11,5 @@ if [ $# -eq 0 ]; then
 fi
 
 export ADDITIONAL_DOCKER_FLAGS='-it --env=VAULT_AGENT_COMMAND'
-export VAULT_AGENT_COMMAND='["bin/rails", "console"]'
+export VAULT_AGENT_COMMAND='["bin/rails", "console", "--sandbox"]'
 ./script/prod_run $1
