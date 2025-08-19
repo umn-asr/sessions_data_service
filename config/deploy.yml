@@ -15,26 +15,22 @@ servers:
       traefik.http.routers.sessions-web.tls.certresolver: "sectigo"
       traefik.http.routers.sessions-web.middlewares: "maintenance-mode@file"
     options:
-      init: true
       network: "traefik"
 
 # Credentials for your image host.
 registry:
   server: asr-docker-local.artifactory.umn.edu
-  username:
-    - ARTIFACTORY_USERNAME
+  username: asrweb
   password:
-    - ARTIFACTORY_API_KEY
+    - ARTIFACTORY_IDENTITY_TOKEN
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
 env:
+  clear:
+    VAULT_ADDR: https://hcp-vault-public-vault-fc507e0d.5d5b1f21.z1.hashicorp.cloud:8200
   secret:
-    - DATABASE_HOST
-    - DATABASE_NAME
-    - DATABASE_PASSWORD
-    - DATABASE_USER
-    - SECRET_KEY_BASE
+    - VAULT_WRAPPED_SECRET
 
 # Use a different ssh user than root
 ssh:
