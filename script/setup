@@ -7,11 +7,10 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-echo "==> Pulling lastpass container"
-docker pull asrcustomsolutions/lastpass:latest
-
-echo "==> Running lpassify"
-script/_lastpassify
+echo "==> Populating development secrets"
+source "./script/_vault"
+vault_saml_login
+vault agent -config "config/vault/development.hcl"
 
 echo "==> Checking architecture"
 if [ `uname -m` = "arm64" ]; then

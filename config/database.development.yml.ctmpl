@@ -1,0 +1,21 @@
+{{- $internet_id := env "INTERNET_ID" -}}
+global_defaults: &global_defaults
+  adapter: oracle
+
+{{ with secret (printf "secret/data/dev/%s/oracle/development" $internet_id) -}}
+development:
+  <<: *global_defaults
+  username: {{ .Data.data.DATABASE_USER }}
+  password: {{ .Data.data.DATABASE_PASSWORD }}
+  host: {{ .Data.data.DATABASE_HOST }}
+  database: {{ .Data.data.DATABASE_NAME }}
+{{ end -}}
+
+{{ with secret (printf "secret/data/dev/%s/oracle/test" $internet_id) }}
+test:
+  <<: *global_defaults
+  username: {{ .Data.data.DATABASE_USER }}
+  password: {{ .Data.data.DATABASE_PASSWORD }}
+  host: {{ .Data.data.DATABASE_HOST }}
+  database: {{ .Data.data.DATABASE_NAME }}
+{{ end -}}
