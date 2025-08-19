@@ -1,0 +1,15 @@
+#!/bin/bash
+set -euo pipefail
+
+# script/prod_rails_console: Run a Rails console against the staging or production environments.
+
+cd "$(dirname "$0")/.."
+
+if [ $# -eq 0 ]; then
+  echo "Provide an environment: script/prod_rails_console [production|staging]"
+  exit 1
+fi
+
+export ADDITIONAL_DOCKER_FLAGS='-it --env=VAULT_AGENT_COMMAND'
+export VAULT_AGENT_COMMAND='["bin/rails", "console", "--sandbox"]'
+./script/prod_run $1

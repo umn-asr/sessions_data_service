@@ -17,7 +17,6 @@ gem "loofah", "~>2.23"
 gem "puma", "~> 5.2"
 
 group :development, :test do
-  gem "lastpassify"
   gem "listen"
   gem "spring", "~> 1.3.6"
   gem "oracle_cleaner"

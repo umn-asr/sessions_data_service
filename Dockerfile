@@ -1,4 +1,4 @@
-ARG ORACLE_IC_VERSION="19.19"
+ARG ORACLE_IC_VERSION="19.28"
 ARG RUBY_VERSION="3.2.2"
 
 ### base ###
@@ -14,6 +14,9 @@ ENV HOME="/home/app"
 ENV NLS_LANG="AMERICAN_AMERICA.WE8ISO8859P1"
 ENV PORT=$PORT
 ENV TZ="America/Chicago"
+ENV VAULT_ADDR="https://hcp-vault-private-vault-fc507e0d.5d5b1f21.z1.hashicorp.cloud:8200"
+ENV VAULT_LOG_LEVEL="info"
+ENV VAULT_NAMESPACE="admin/asr"
 
 EXPOSE $PORT
 WORKDIR $HOME
@@ -27,9 +30,18 @@ RUN groupadd -g $GID app \
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
   curl \
+  gnupg \
   libaio1 \
   unzip \
   && rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
+
+# Install HCP Vault
+RUN curl -o - https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=VERSION_CODENAME=).*' /etc/os-release) main" | tee /etc/apt/sources.list.d/hashicorp.list \
+    && apt-get update -qq \
+    && apt-get install -y --no-install-recommends \
+    vault-enterprise \
+    && rm -rf /var/cache/apt/archives /var/lib/apt/lists/*
 
 # install the oracle instant client
 COPY script/_install_oracle install_oracle
@@ -79,8 +91,8 @@ COPY --chown=app:app config/database.deploy.yml "${HOME}/config/database.yml"
 
 # start the app
 USER app
-ENTRYPOINT [ "script/_entrypoint.sh" ]
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
+ENTRYPOINT [ "script/_vault_entrypoint" ]
+CMD ["vault", "agent", "-config", "/home/app/agent.hcl"]
 
 
 ### development ###
